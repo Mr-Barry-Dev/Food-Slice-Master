@@ -993,7 +993,8 @@ public class GameManager2 : MonoBehaviour
         FormationType formation =
             (FormationType)currentPhase;
 
-
+        
+        UpdateLevelStatus(false);
         StartNormalFormation(
             formation
         );
@@ -1937,6 +1938,7 @@ public class GameManager2 : MonoBehaviour
 
 
         levelCompleted = true;
+        UpdateLevelStatus(true);
 
 
         SetProgress(1f);
@@ -1955,7 +1957,8 @@ public class GameManager2 : MonoBehaviour
 
         if (gameManager != null)
         {
-            gameManager.ShowWin();
+           gameManager.GiveLevelCompleteRewards();
+           gameManager.ShowWin();
         }
     }
 
@@ -2038,4 +2041,27 @@ public class GameManager2 : MonoBehaviour
             Destroy(currentKnife);
         }
     }
+
+
+    // ============================================================
+// UPDATE LEVEL STATUS
+// ============================================================
+
+private void UpdateLevelStatus(bool completed)
+{
+    if (gameManager == null)
+        return;
+
+    int levelNumber = currentPhase + 1;
+
+    if (testMode)
+    {
+        levelNumber = 1;
+    }
+
+    gameManager.UpdateLevelStatusText(
+        levelNumber,
+        completed
+    );   
+}
 }

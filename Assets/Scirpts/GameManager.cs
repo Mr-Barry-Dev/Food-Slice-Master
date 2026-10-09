@@ -1,336 +1,8 @@
-// using System.Collections;
-// using UnityEngine;
-
-// public class GameManager : MonoBehaviour
-// {
-//     // ============================================================
-//     // PANELS
-//     // ============================================================
-
-//     [Header("===== PANELS =====")]
-
-//     [Tooltip("Game Over panel.")]
-//     public GameObject gameOverPanel;
-
-//     [Tooltip("Win panel.")]
-//     public GameObject winPanel;
-
-
-//     // ============================================================
-//     // PANEL DELAY
-//     // ============================================================
-
-//     [Header("===== PANEL OPEN DELAY =====")]
-
-//     [Tooltip("Game Over panel show hone se pehle ka delay.")]
-//     public float gameOverDelay = 1f;
-
-//     [Tooltip("Win panel show hone se pehle ka delay.")]
-//     public float winDelay = 1f;
-
-
-//     // ============================================================
-//     // PANEL ANIMATION
-//     // ============================================================
-
-//     [Header("===== PANEL ANIMATION =====")]
-
-//     [Tooltip("Panel animation duration.")]
-//     public float animationDuration = 0.35f;
-
-//     [Tooltip("Starting scale of panel.")]
-//     public float startScale = 0.7f;
-
-//     [Tooltip("Final scale of panel.")]
-//     public float finalScale = 1f;
-
-
-//     // ============================================================
-//     // GAME STATE
-//     // ============================================================
-
-//     private bool gameOver = false;
-
-//     private bool levelWon = false;
-
-
-//     // ============================================================
-//     // START
-//     // ============================================================
-
-//     private void Start()
-//     {
-//         // --------------------------------------------------------
-//         // HIDE GAME OVER
-//         // --------------------------------------------------------
-
-//         if (gameOverPanel != null)
-//         {
-//             gameOverPanel.SetActive(false);
-//         }
-
-
-//         // --------------------------------------------------------
-//         // HIDE WIN
-//         // --------------------------------------------------------
-
-//         if (winPanel != null)
-//         {
-//             winPanel.SetActive(false);
-//         }
-//     }
-
-
-//     // ============================================================
-//     // SHOW GAME OVER
-//     // ============================================================
-
-//     public void ShowGameOver()
-//     {
-//         if (gameOver || levelWon)
-//             return;
-
-
-//         gameOver = true;
-
-
-//         // --------------------------------------------------------
-//         // HIDE WIN
-//         // --------------------------------------------------------
-
-//         if (winPanel != null)
-//         {
-//             winPanel.SetActive(false);
-//         }
-
-
-//         // --------------------------------------------------------
-//         // SHOW GAME OVER AFTER DELAY
-//         // --------------------------------------------------------
-
-//         if (gameOverPanel != null)
-//         {
-//             StartCoroutine(
-//                 ShowPanelAfterDelay(
-//                     gameOverPanel,
-//                     gameOverDelay
-//                 )
-//             );
-//         }
-//         else
-//         {
-//             Debug.LogWarning(
-//                 "GameManager: Game Over Panel is NOT assigned."
-//             );
-//         }
-//     }
-
-
-//     // ============================================================
-//     // SHOW WIN
-//     // ============================================================
-
-//     public void ShowWin()
-//     {
-//         if (gameOver || levelWon)
-//             return;
-
-
-//         levelWon = true;
-
-
-//         // --------------------------------------------------------
-//         // HIDE GAME OVER
-//         // --------------------------------------------------------
-
-//         if (gameOverPanel != null)
-//         {
-//             gameOverPanel.SetActive(false);
-//         }
-
-
-//         // --------------------------------------------------------
-//         // SHOW WIN AFTER DELAY
-//         // --------------------------------------------------------
-
-//         if (winPanel != null)
-//         {
-//             StartCoroutine(
-//                 ShowPanelAfterDelay(
-//                     winPanel,
-//                     winDelay
-//                 )
-//             );
-//         }
-//         else
-//         {
-//             Debug.LogWarning(
-//                 "GameManager: Win Panel is NOT assigned."
-//             );
-//         }
-//     }
-
-
-//     // ============================================================
-//     // DELAY THEN SHOW PANEL
-//     // ============================================================
-
-//     private IEnumerator ShowPanelAfterDelay(
-//         GameObject panel,
-//         float delay)
-//     {
-//         if (panel == null)
-//             yield break;
-
-
-//         // --------------------------------------------------------
-//         // WAIT
-//         // --------------------------------------------------------
-
-//         if (delay > 0f)
-//         {
-//             yield return new WaitForSecondsRealtime(delay);
-//         }
-
-
-//         // --------------------------------------------------------
-//         // PLAY PANEL ANIMATION
-//         // --------------------------------------------------------
-
-//         yield return StartCoroutine(
-//             AnimatePanel(panel)
-//         );
-//     }
-
-
-//     // ============================================================
-//     // PANEL ANIMATION
-//     // ============================================================
-
-//     private IEnumerator AnimatePanel(
-//         GameObject panel)
-//     {
-//         if (panel == null)
-//             yield break;
-
-
-//         panel.SetActive(true);
-
-
-//         RectTransform rect =
-//             panel.GetComponent<RectTransform>();
-
-
-//         if (rect == null)
-//         {
-//             yield break;
-//         }
-
-
-//         // --------------------------------------------------------
-//         // START SCALE
-//         // --------------------------------------------------------
-
-//         rect.localScale =
-//             Vector3.one * startScale;
-
-
-//         float timer = 0f;
-
-
-//         // --------------------------------------------------------
-//         // ANIMATE
-//         // --------------------------------------------------------
-
-//         while (
-//             timer <
-//             animationDuration
-//         )
-//         {
-//             timer +=
-//                 Time.unscaledDeltaTime;
-
-
-//             float progress =
-//                 Mathf.Clamp01(
-//                     timer /
-//                     animationDuration
-//                 );
-
-
-//             // ----------------------------------------------------
-//             // SMOOTH EASE OUT
-//             // ----------------------------------------------------
-
-//             float smoothProgress =
-//                 1f -
-//                 Mathf.Pow(
-//                     1f - progress,
-//                     3f
-//                 );
-
-
-//             float scale =
-//                 Mathf.Lerp(
-//                     startScale,
-//                     finalScale,
-//                     smoothProgress
-//                 );
-
-
-//             rect.localScale =
-//                 Vector3.one * scale;
-
-
-//             yield return null;
-//         }
-
-
-//         // --------------------------------------------------------
-//         // FINAL SCALE
-//         // --------------------------------------------------------
-
-//         rect.localScale =
-//             Vector3.one * finalScale;
-//     }
-
-
-//     // ============================================================
-//     // GAME OVER STATE
-//     // ============================================================
-
-//     public bool IsGameOver()
-//     {
-//         return gameOver;
-//     }
-
-
-//     // ============================================================
-//     // WIN STATE
-//     // ============================================================
-
-//     public bool IsLevelWon()
-//     {
-//         return levelWon;
-//     }
-
-
-//     // ============================================================
-//     // GAME ENDED
-//     // ============================================================
-
-//     public bool IsGameEnded()
-//     {
-//         return gameOver || levelWon;
-//     }
-// }
-
-
-
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -342,6 +14,21 @@ public class GameManager : MonoBehaviour
 
     [Tooltip("Game Over panel.")]
     public GameObject gameOverPanel;
+
+  // ============================================================
+// LEVEL STATUS TEXTS
+// ============================================================
+
+[Header("===== LEVEL STATUS TEXTS =====")]
+
+[Tooltip("Incomplete level ka TMP Text.")]
+public TMP_Text incompleteLevelText;
+
+[Tooltip("Complete level ka TMP Text.")]
+public TMP_Text completeLevelText;
+
+[Tooltip("GameManager2 se current level number lega.")]
+public GameManager2 gameManager2;
 
     [Tooltip("Win panel.")]
     public GameObject winPanel;
@@ -476,6 +163,29 @@ public class GameManager : MonoBehaviour
     private bool gameOver = false;
 
     private bool levelWon = false;
+
+
+    // ============================================================
+// LEVEL COMPLETE REWARDS
+// ============================================================
+
+[Header("===== LEVEL COMPLETE REWARDS =====")]
+
+[Tooltip("Coins reward show karne wala TMP Text.")]
+public TMP_Text coinsRewardText;
+
+[Tooltip("Gems reward show karne wala TMP Text.")]
+public TMP_Text gemsRewardText;
+
+[Header("===== RANDOM REWARD SETTINGS =====")]
+
+public int minCoinsReward = 30;
+public int maxCoinsReward = 60;
+
+public int minGemsReward = 10;
+public int maxGemsReward = 20;
+
+private bool rewardGiven = false;
 
 
     // ============================================================
@@ -1173,6 +883,66 @@ public class GameManager : MonoBehaviour
     {
         return gameOver || levelWon;
     }
+
+
+    // ============================================================
+// UPDATE LEVEL STATUS TEXT
+// ============================================================
+public void UpdateLevelStatusText(int levelNumber, bool completed)
+{
+    if (incompleteLevelText != null)
+    {
+        incompleteLevelText.gameObject.SetActive(!completed);
+
+        incompleteLevelText.text =
+            "Level " + levelNumber + "\nIncomplete";
+    }
+
+    if (completeLevelText != null)
+    {
+        completeLevelText.gameObject.SetActive(completed);
+
+        completeLevelText.text =
+            "Level " + levelNumber;
+    }
+}
+
+
+// ============================================================
+// GIVE LEVEL COMPLETE REWARDS
+// ============================================================
+
+public void GiveLevelCompleteRewards()
+{
+    if (rewardGiven)
+        return;
+
+    rewardGiven = true;
+
+    int coins = Random.Range(
+        minCoinsReward,
+        maxCoinsReward + 1
+    );
+
+    int gems = Random.Range(
+        minGemsReward,
+        maxGemsReward + 1
+    );
+
+    if (coinsRewardText != null)
+    {
+        coinsRewardText.text = "+" + coins + " Coins";
+        coinsRewardText.gameObject.SetActive(true);
+    }
+
+    if (gemsRewardText != null)
+    {
+        gemsRewardText.text = "+" + gems + " Gems";
+        gemsRewardText.gameObject.SetActive(true);
+    }
+
+    Debug.Log("Level Rewards: " + coins + " Coins, " + gems + " Gems");
+}
 }
 
 

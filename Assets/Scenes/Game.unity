@@ -2660,7 +2660,7 @@ GameObject:
   - component: {fileID: 900654958}
   - component: {fileID: 900654957}
   m_Layer: 5
-  m_Name: LevelTxt
+  m_Name: CompleteLevelTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3491,7 +3491,7 @@ GameObject:
   - component: {fileID: 1334782080}
   - component: {fileID: 1334782079}
   m_Layer: 5
-  m_Name: Txt1
+  m_Name: IncompleteLevelTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4739,8 +4739,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Level 10
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d53c8491226b27c4ab50dd30ff5f09ab, type: 2}
-  m_sharedMaterial: {fileID: -7363743797092705317, guid: d53c8491226b27c4ab50dd30ff5f09ab, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5165,6 +5165,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverPanel: {fileID: 1761197110}
+  incompleteLevelText: {fileID: 1334782079}
+  completeLevelText: {fileID: 900654957}
+  gameManager2: {fileID: 2003357464}
   winPanel: {fileID: 788839527}
   extraPanel: {fileID: 401006230}
   openPanelButton: {fileID: 1574886008}
@@ -5189,6 +5192,12 @@ MonoBehaviour:
   extraPanelAnimationDuration: 0.3
   extraPanelStartScale: 0.7
   extraPanelFinalScale: 1
+  coinsRewardText: {fileID: 1459565028}
+  gemsRewardText: {fileID: 243228036}
+  minCoinsReward: 30
+  maxCoinsReward: 60
+  minGemsReward: 10
+  maxGemsReward: 20
 --- !u!4 &1851203311
 Transform:
   m_ObjectHideFlags: 0
@@ -5638,26 +5647,26 @@ MonoBehaviour:
   circleSettings:
     fruitPrefabs:
     - {fileID: 7388587118229623499, guid: 59e90656b15716748a1570a59922e528, type: 3}
-    fruitCount: 1
+    fruitCount: 7
     radius: 1.3
     fruitGap: 0.3
   squareSettings:
     fruitPrefabs:
     - {fileID: 7388587118229623499, guid: 59e90656b15716748a1570a59922e528, type: 3}
-    fruitCount: 1
+    fruitCount: 9
     fruitGap: 1
   triangleSettings:
     fruitPrefabs:
     - {fileID: 7388587118229623499, guid: 59e90656b15716748a1570a59922e528, type: 3}
-    fruitCount: 1
+    fruitCount: 10
     fruitGap: 0.8
   rectangleSettings:
     fruitPrefabs:
     - {fileID: 7388587118229623499, guid: 59e90656b15716748a1570a59922e528, type: 3}
-    fruitCount: 1
+    fruitCount: 12
     fruitGap: 0.8
   testMode: 0
-  testShape: 2
+  testShape: 3
   shapeRotation: {fileID: 783767900}
   startingProgress: 0.1
   nextShapeDelay: 1.5
