@@ -262,6 +262,9 @@ public class GameManager2 : MonoBehaviour
 
     private bool currentKnifeHitFruit = false;
 
+    private const string LEVEL_KEY = "CurrentLevelNumber";
+private int currentLevelNumber = 1;
+
 
     // ============================================================
     // START
@@ -332,6 +335,10 @@ public class GameManager2 : MonoBehaviour
         // --------------------------------------------------------
 
         CreateReadyKnife();
+
+
+        currentLevelNumber = PlayerPrefs.GetInt(LEVEL_KEY, 1);
+SetLevelText("Level " + currentLevelNumber);
     }
 
 
@@ -1005,55 +1012,10 @@ public class GameManager2 : MonoBehaviour
     // NORMAL FORMATION
     // ============================================================
 
-    private void StartNormalFormation(
-        FormationType formationType)
-    {
-        switch (formationType)
-        {
-            case FormationType.Circle:
-
-                SetLevelText("Level 1");
-
-                SpawnFormation(
-                    FormationType.Circle
-                );
-
-                break;
-
-
-            case FormationType.Square:
-
-                SetLevelText("Level 2");
-
-                SpawnFormation(
-                    FormationType.Square
-                );
-
-                break;
-
-
-            case FormationType.Triangle:
-
-                SetLevelText("Level 3");
-
-                SpawnFormation(
-                    FormationType.Triangle
-                );
-
-                break;
-
-
-            case FormationType.Rectangle:
-
-                SetLevelText("Level 4");
-
-                SpawnFormation(
-                    FormationType.Rectangle
-                );
-
-                break;
-        }
-    }
+   private void StartNormalFormation(FormationType formationType)
+{
+    SpawnFormation(formationType);
+}
 
 
     // ============================================================
@@ -1061,64 +1023,10 @@ public class GameManager2 : MonoBehaviour
     // ============================================================
 
     private void StartTestShape()
-    {
-        testCompleted = false;
-
-
-        switch (testShape)
-        {
-            case TestShape.Circle:
-
-                SetLevelText(
-                    "TEST - CIRCLE"
-                );
-
-                SpawnFormation(
-                    FormationType.Circle
-                );
-
-                break;
-
-
-            case TestShape.Square:
-
-                SetLevelText(
-                    "TEST - SQUARE"
-                );
-
-                SpawnFormation(
-                    FormationType.Square
-                );
-
-                break;
-
-
-            case TestShape.Triangle:
-
-                SetLevelText(
-                    "TEST - TRIANGLE"
-                );
-
-                SpawnFormation(
-                    FormationType.Triangle
-                );
-
-                break;
-
-
-            case TestShape.Rectangle:
-
-                SetLevelText(
-                    "TEST - RECTANGLE"
-                );
-
-                SpawnFormation(
-                    FormationType.Rectangle
-                );
-
-                break;
-        }
-    }
+{
+    testCompleted = false;
+    SpawnFormation((FormationType)(int)testShape);
+}
 
 
     // ============================================================
@@ -1944,12 +1852,6 @@ public class GameManager2 : MonoBehaviour
         SetProgress(1f);
 
 
-        if (levelText != null)
-        {
-            levelText.text =
-                "LEVEL COMPLETE";
-        }
-
 
         // --------------------------------------------------------
         // SHOW WIN
@@ -2052,16 +1954,12 @@ private void UpdateLevelStatus(bool completed)
     if (gameManager == null)
         return;
 
-    int levelNumber = currentPhase + 1;
-
-    if (testMode)
-    {
-        levelNumber = 1;
-    }
+    // Real level number PlayerPrefs se, shape index se nahi
+    int levelNumber = PlayerPrefs.GetInt(LEVEL_KEY, 1);
 
     gameManager.UpdateLevelStatusText(
         levelNumber,
         completed
-    );   
+    );
 }
 }

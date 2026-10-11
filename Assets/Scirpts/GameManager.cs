@@ -15,6 +15,24 @@ public class GameManager : MonoBehaviour
     [Tooltip("Game Over panel.")]
     public GameObject gameOverPanel;
 
+
+    // ============================================================
+// GAME OVER RANDOM IMAGES
+// ============================================================
+
+[Header("===== GAME OVER RANDOM IMAGES =====")]
+
+[Tooltip("Game Over panel ke andar ka UI Image, jisme random sprite dikhega.")]
+public Image gameOverImage;
+
+[Tooltip("Game over par inme se ek random image show hogi.")]
+public Sprite[] gameOverSprites;
+
+[Tooltip("Ek hi image lagatar repeat na ho.")]
+public bool avoidSameImageTwice = true;
+
+private int lastGameOverImageIndex = -1;
+
   // ============================================================
 // LEVEL STATUS TEXTS
 // ============================================================
@@ -61,6 +79,9 @@ public GameManager2 gameManager2;
 
     [Tooltip("Multiple Home buttons assign kar sakte ho.")]
     public Button[] homeButtons;
+
+    [Tooltip("Win panel ka Next button - level +1 karega.")]
+public Button nextButton;
 
 
     // ============================================================
@@ -235,6 +256,13 @@ private bool rewardGiven = false;
         }
 
 
+        if (nextButton != null)
+{
+    nextButton.onClick.RemoveListener(GoToNextLevel);
+    nextButton.onClick.AddListener(GoToNextLevel);
+}
+
+
         // --------------------------------------------------------
         // HOME BUTTONS
         // --------------------------------------------------------
@@ -330,6 +358,8 @@ private bool rewardGiven = false;
 
 
         gameOver = true;
+
+        ShowRandomGameOverImage(); 
 
 
         // --------------------------------------------------------
@@ -929,19 +959,79 @@ public void GiveLevelCompleteRewards()
         maxGemsReward + 1
     );
 
+    CoinManager.AddCoins(coins);
+    CoinManager.AddGems(gems);
+
+    Debug.Log("Saved Total -> Coins: " + CoinManager.GetCoins() + ", Gems: " + CoinManager.GetGems());
+
     if (coinsRewardText != null)
     {
-        coinsRewardText.text = "+" + coins + " Coins";
+        coinsRewardText.text = "+" + coins;
         coinsRewardText.gameObject.SetActive(true);
     }
 
     if (gemsRewardText != null)
     {
-        gemsRewardText.text = "+" + gems + " Gems";
+        gemsRewardText.text = "+" + gems;
         gemsRewardText.gameObject.SetActive(true);
     }
+}
 
-    Debug.Log("Level Rewards: " + coins + " Coins, " + gems + " Gems");
+
+// ============================================================
+// NEXT LEVEL
+// ============================================================
+
+public void GoToNextLevel()
+{
+    Time.timeScale = 1f;
+
+    int level = PlayerPrefs.GetInt("CurrentLevelNumber", 1);
+    PlayerPrefs.SetInt("CurrentLevelNumber", level + 1);
+    PlayerPrefs.Save();
+
+    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+}
+
+
+// ============================================================
+// SHOW RANDOM GAME OVER IMAGE
+// ============================================================
+
+private void ShowRandomGameOverImage()
+{
+    if (gameOverImage == null)
+    {
+        Debug.LogWarning("GameManager: Game Over Image is NOT assigned.");
+        return;
+    }
+
+    if (gameOverSprites == null || gameOverSprites.Length == 0)
+    {
+        Debug.LogWarning("GameManager: Game Over Sprites array is empty.");
+        return;
+    }
+
+    int index = Random.Range(0, gameOverSprites.Length);
+
+    if (avoidSameImageTwice && gameOverSprites.Length > 1)
+    {
+        int tries = 0;
+
+        while (index == lastGameOverImageIndex && tries < 10)
+        {
+            index = Random.Range(0, gameOverSprites.Length);
+            tries++;
+        }
+    }
+
+    lastGameOverImageIndex = index;
+
+    if (gameOverSprites[index] != null)
+    {
+        gameOverImage.sprite = gameOverSprites[index];
+        gameOverImage.enabled = true;
+    }
 }
 }
 
