@@ -5197,6 +5197,8 @@ MonoBehaviour:
   - {fileID: 102814572}
   - {fileID: 605304201}
   nextButton: {fileID: 1393300542}
+  reviveButton: {fileID: 603439796}
+  maxRevivesPerLevel: 1
   instagramButton: {fileID: 50008644}
   gmailButton: {fileID: 1253844958}
   ratingButton: {fileID: 681392409}
@@ -5668,28 +5670,41 @@ MonoBehaviour:
   circleSettings:
     fruitPrefabs:
     - {fileID: 7388587118229623499, guid: 59e90656b15716748a1570a59922e528, type: 3}
-    fruitCount: 1
+    fruitCount: 7
     radius: 1.3
     fruitGap: 0.3
   squareSettings:
     fruitPrefabs:
     - {fileID: 7388587118229623499, guid: 59e90656b15716748a1570a59922e528, type: 3}
-    fruitCount: 1
+    fruitCount: 9
     fruitGap: 1
   triangleSettings:
     fruitPrefabs:
     - {fileID: 7388587118229623499, guid: 59e90656b15716748a1570a59922e528, type: 3}
-    fruitCount: 1
+    fruitCount: 10
     fruitGap: 0.8
   rectangleSettings:
     fruitPrefabs:
     - {fileID: 7388587118229623499, guid: 59e90656b15716748a1570a59922e528, type: 3}
-    fruitCount: 1
+    fruitCount: 12
     fruitGap: 0.8
   testMode: 0
   testShape: 3
   shapeRotation: {fileID: 783767900}
+  randomShapeOrderPerLevel: 1
+  threeShapesUntilLevel: 5
+  fourShapesUntilLevel: 15
+  fiveShapesUntilLevel: 25
   startingProgress: 0.1
+  showMultiHitNumbers: 1
+  hitNumberPrefab: {fileID: 3219698770566904331, guid: 3725fcc5b2de86a4189168c5582e175d, type: 3}
+  hitNumberDuration: 1
+  hitNumberFlyDistance: 1
+  hitNumberFontSize: 8
+  hitNumberColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  hitNumberSortingOrder: 200
+  hitNumberSortingLayerName: 
+  hitNumberCanvas: {fileID: 1267217509}
   nextShapeDelay: 1.5
 --- !u!4 &2003357465
 Transform:

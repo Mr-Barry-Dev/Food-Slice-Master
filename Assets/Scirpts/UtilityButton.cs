@@ -1,4 +1,3 @@
-
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +18,41 @@ public class UtilityButton : MonoBehaviour
 
     [Tooltip("Har panel ka matching close button.")]
     public Button[] closeButtons;
+
+
+    // ============================================================
+    // INSTAGRAM BUTTON
+    // ============================================================
+
+    [Header("===== INSTAGRAM =====")]
+
+    [Tooltip("Instagram button. Isse dabane par profile browser/app me khulegi.")]
+    public Button instagramButton;
+
+    [Tooltip("Instagram profile ka poora link. Example: https://www.instagram.com/yourusername/")]
+    public string instagramUrl = "https://www.instagram.com/yourusername/";
+
+
+    // ============================================================
+    // EXIT BUTTON & CONFIRMATION PANEL
+    // ============================================================
+
+    [Header("===== EXIT CONFIRMATION =====")]
+
+    [Tooltip("Exit button. Isse dabane par confirmation panel button se nikalega.")]
+    public Button exitButton;
+
+    [Tooltip("Exit confirmation panel (Are you sure?).")]
+    public GameObject exitPanel;
+
+    [Tooltip("Yes button - game band karega.")]
+    public Button exitYesButton;
+
+    [Tooltip("No button - panel wapas exit button me chala jayega.")]
+    public Button exitNoButton;
+
+    [Tooltip("On rakho to exit panel khulne par Objects To Hide bhi hide honge.")]
+    public bool hideObjectsOnExitPanel = false;
 
 
     // ============================================================
@@ -50,6 +84,13 @@ public class UtilityButton : MonoBehaviour
     // PRIVATE VARIABLES
     // ============================================================
 
+    // Utility panels + exit panel (last index) ek saath
+    private GameObject[] panels;
+    private Button[] openButtons;
+    private Button[] closeButtonsAll;
+
+    private int exitIndex = -1;
+
     private RectTransform[] panelRects;
     private RectTransform[] buttonRects;
 
@@ -58,6 +99,7 @@ public class UtilityButton : MonoBehaviour
     private Quaternion[] originalRotations;
 
     private bool[] originalActiveStates;
+    private bool objectsHidden = false;
 
     private int currentPanelIndex = -1;
 
@@ -72,7 +114,42 @@ public class UtilityButton : MonoBehaviour
 
     private void Awake()
     {
-        int panelCount = utilityPanels.Length;
+        // ----- Utility panels + exit panel ko ek list me jodo -----
+
+        int baseCount = utilityPanels != null ? utilityPanels.Length : 0;
+
+        bool hasExit = exitPanel != null;
+
+        int panelCount = baseCount + (hasExit ? 1 : 0);
+
+        exitIndex = hasExit ? baseCount : -1;
+
+        panels = new GameObject[panelCount];
+        openButtons = new Button[panelCount];
+        closeButtonsAll = new Button[panelCount];
+
+        for (int i = 0; i < baseCount; i++)
+        {
+            panels[i] = utilityPanels[i];
+
+            if (utilityButtons != null && i < utilityButtons.Length)
+                openButtons[i] = utilityButtons[i];
+
+            if (closeButtons != null && i < closeButtons.Length)
+                closeButtonsAll[i] = closeButtons[i];
+        }
+
+        if (hasExit)
+        {
+            panels[exitIndex] = exitPanel;
+            openButtons[exitIndex] = exitButton;
+            closeButtonsAll[exitIndex] = exitNoButton;
+
+            // Exit panel shuru me band rahe
+            exitPanel.SetActive(false);
+        }
+
+        // ----- Cache -----
 
         panelRects = new RectTransform[panelCount];
         originalPositions = new Vector2[panelCount];
@@ -81,10 +158,12 @@ public class UtilityButton : MonoBehaviour
 
         buttonRects = new RectTransform[panelCount];
 
-        originalActiveStates = new bool[objectsToHide.Length];
+        int hideCount = objectsToHide != null ? objectsToHide.Length : 0;
+
+        originalActiveStates = new bool[hideCount];
 
         // Cache objects' original active states.
-        for (int i = 0; i < objectsToHide.Length; i++)
+        for (int i = 0; i < hideCount; i++)
         {
             if (objectsToHide[i] != null)
             {
@@ -96,11 +175,11 @@ public class UtilityButton : MonoBehaviour
         // Cache panel positions and scales.
         for (int i = 0; i < panelCount; i++)
         {
-            if (utilityPanels[i] == null)
+            if (panels[i] == null)
                 continue;
 
             panelRects[i] =
-                utilityPanels[i].GetComponent<RectTransform>();
+                panels[i].GetComponent<RectTransform>();
 
             if (panelRects[i] != null)
             {
@@ -114,29 +193,93 @@ public class UtilityButton : MonoBehaviour
                     panelRects[i].localRotation;
             }
 
-            if (i < utilityButtons.Length &&
-                utilityButtons[i] != null)
+            if (openButtons[i] != null)
             {
                 buttonRects[i] =
-                    utilityButtons[i].GetComponent<RectTransform>();
+                    openButtons[i].GetComponent<RectTransform>();
 
                 int index = i;
 
-                utilityButtons[i].onClick.AddListener(
+                openButtons[i].onClick.AddListener(
                     () => OpenPanel(index)
                 );
             }
 
-            if (i < closeButtons.Length &&
-                closeButtons[i] != null)
+            if (closeButtonsAll[i] != null)
             {
                 int index = i;
 
-                closeButtons[i].onClick.AddListener(
+                closeButtonsAll[i].onClick.AddListener(
                     () => ClosePanel(index)
                 );
             }
         }
+
+        // ----- Exit YES button -----
+
+        if (exitYesButton != null)
+        {
+            exitYesButton.onClick.AddListener(ConfirmExit);
+        }
+
+        // ----- Instagram button -----
+
+        if (instagramButton != null)
+        {
+            instagramButton.onClick.AddListener(OpenInstagram);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (instagramButton != null)
+        {
+            instagramButton.onClick.RemoveListener(OpenInstagram);
+        }
+    }
+
+
+    // ============================================================
+    // INSTAGRAM
+    // ============================================================
+
+    public void OpenInstagram()
+    {
+        if (string.IsNullOrWhiteSpace(instagramUrl))
+        {
+            Debug.LogWarning(
+                "UtilityButton: Instagram URL khali hai. Inspector me link daalo."
+            );
+            return;
+        }
+
+        Application.OpenURL(instagramUrl.Trim());
+    }
+
+
+    // ============================================================
+    // CONFIRM EXIT
+    // ============================================================
+
+    public void ConfirmExit()
+    {
+        // Sirf tab quit ho jab exit panel poora khula ho
+        if (exitIndex == -1 ||
+            currentPanelIndex != exitIndex ||
+            isAnimating)
+        {
+            return;
+        }
+
+        Time.timeScale = 1f;
+
+        Debug.Log("UtilityButton: Exit Game.");
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 
 
@@ -149,10 +292,10 @@ public class UtilityButton : MonoBehaviour
         if (isAnimating)
             return;
 
-        if (index < 0 || index >= utilityPanels.Length)
+        if (index < 0 || index >= panels.Length)
             return;
 
-        if (utilityPanels[index] == null ||
+        if (panels[index] == null ||
             panelRects[index] == null ||
             buttonRects[index] == null)
         {
@@ -178,14 +321,24 @@ public class UtilityButton : MonoBehaviour
         }
 
         // Hide coins, gems and other assigned objects.
-        HideObjects();
+        bool shouldHide =
+            index != exitIndex || hideObjectsOnExitPanel;
+
+        if (shouldHide)
+        {
+            HideObjects();
+        }
+        else if (objectsHidden)
+        {
+            ShowObjects();
+        }
 
         currentPanelIndex = index;
 
         RectTransform panel = panelRects[index];
 
         // Activate and bring panel to the front.
-        utilityPanels[index].SetActive(true);
+        panels[index].SetActive(true);
         panel.SetAsLastSibling();
 
         // Get the button's screen position.
@@ -376,7 +529,10 @@ public class UtilityButton : MonoBehaviour
             currentPanelIndex = -1;
 
             // Restore coins, gems and other UI objects.
-            ShowObjects();
+            if (objectsHidden)
+            {
+                ShowObjects();
+            }
         }
 
         isAnimating = false;
@@ -390,6 +546,9 @@ public class UtilityButton : MonoBehaviour
 
     private void HideObjects()
     {
+        if (objectsToHide == null)
+            return;
+
         for (int i = 0; i < objectsToHide.Length; i++)
         {
             if (objectsToHide[i] != null)
@@ -397,10 +556,15 @@ public class UtilityButton : MonoBehaviour
                 objectsToHide[i].SetActive(false);
             }
         }
+
+        objectsHidden = true;
     }
 
     private void ShowObjects()
     {
+        if (objectsToHide == null)
+            return;
+
         for (int i = 0; i < objectsToHide.Length; i++)
         {
             if (objectsToHide[i] != null)
@@ -410,6 +574,8 @@ public class UtilityButton : MonoBehaviour
                 );
             }
         }
+
+        objectsHidden = false;
     }
 
 
@@ -434,6 +600,6 @@ public class UtilityButton : MonoBehaviour
         panelRects[index].localRotation =
             originalRotations[index];
 
-        utilityPanels[index].SetActive(false);
+        panels[index].SetActive(false);
     }
 }

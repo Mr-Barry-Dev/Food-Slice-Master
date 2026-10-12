@@ -17,36 +17,37 @@ public class GameManager : MonoBehaviour
 
 
     // ============================================================
-// GAME OVER RANDOM IMAGES
-// ============================================================
+    // GAME OVER RANDOM IMAGES
+    // ============================================================
 
-[Header("===== GAME OVER RANDOM IMAGES =====")]
+    [Header("===== GAME OVER RANDOM IMAGES =====")]
 
-[Tooltip("Game Over panel ke andar ka UI Image, jisme random sprite dikhega.")]
-public Image gameOverImage;
+    [Tooltip("Game Over panel ke andar ka UI Image, jisme random sprite dikhega.")]
+    public Image gameOverImage;
 
-[Tooltip("Game over par inme se ek random image show hogi.")]
-public Sprite[] gameOverSprites;
+    [Tooltip("Game over par inme se ek random image show hogi.")]
+    public Sprite[] gameOverSprites;
 
-[Tooltip("Ek hi image lagatar repeat na ho.")]
-public bool avoidSameImageTwice = true;
+    [Tooltip("Ek hi image lagatar repeat na ho.")]
+    public bool avoidSameImageTwice = true;
 
-private int lastGameOverImageIndex = -1;
+    private int lastGameOverImageIndex = -1;
 
-  // ============================================================
-// LEVEL STATUS TEXTS
-// ============================================================
 
-[Header("===== LEVEL STATUS TEXTS =====")]
+    // ============================================================
+    // LEVEL STATUS TEXTS
+    // ============================================================
 
-[Tooltip("Incomplete level ka TMP Text.")]
-public TMP_Text incompleteLevelText;
+    [Header("===== LEVEL STATUS TEXTS =====")]
 
-[Tooltip("Complete level ka TMP Text.")]
-public TMP_Text completeLevelText;
+    [Tooltip("Incomplete level ka TMP Text.")]
+    public TMP_Text incompleteLevelText;
 
-[Tooltip("GameManager2 se current level number lega.")]
-public GameManager2 gameManager2;
+    [Tooltip("Complete level ka TMP Text.")]
+    public TMP_Text completeLevelText;
+
+    [Tooltip("GameManager2 se current level number lega.")]
+    public GameManager2 gameManager2;
 
     [Tooltip("Win panel.")]
     public GameObject winPanel;
@@ -81,7 +82,24 @@ public GameManager2 gameManager2;
     public Button[] homeButtons;
 
     [Tooltip("Win panel ka Next button - level +1 karega.")]
-public Button nextButton;
+    public Button nextButton;
+
+
+    // ============================================================
+    // REVIVE
+    // ============================================================
+
+    [Header("===== REVIVE =====")]
+
+    [Tooltip("Revive button - jis phase me game over hua wahi se continue.")]
+    public Button reviveButton;
+
+    [Tooltip("Ek level me kitni baar revive kar sakte ho (0 = unlimited).")]
+    public int maxRevivesPerLevel = 1;
+
+    private int revivesUsed = 0;
+
+    private Coroutine gameOverRoutine;
 
 
     // ============================================================
@@ -187,26 +205,26 @@ public Button nextButton;
 
 
     // ============================================================
-// LEVEL COMPLETE REWARDS
-// ============================================================
+    // LEVEL COMPLETE REWARDS
+    // ============================================================
 
-[Header("===== LEVEL COMPLETE REWARDS =====")]
+    [Header("===== LEVEL COMPLETE REWARDS =====")]
 
-[Tooltip("Coins reward show karne wala TMP Text.")]
-public TMP_Text coinsRewardText;
+    [Tooltip("Coins reward show karne wala TMP Text.")]
+    public TMP_Text coinsRewardText;
 
-[Tooltip("Gems reward show karne wala TMP Text.")]
-public TMP_Text gemsRewardText;
+    [Tooltip("Gems reward show karne wala TMP Text.")]
+    public TMP_Text gemsRewardText;
 
-[Header("===== RANDOM REWARD SETTINGS =====")]
+    [Header("===== RANDOM REWARD SETTINGS =====")]
 
-public int minCoinsReward = 30;
-public int maxCoinsReward = 60;
+    public int minCoinsReward = 30;
+    public int maxCoinsReward = 60;
 
-public int minGemsReward = 10;
-public int maxGemsReward = 20;
+    public int minGemsReward = 10;
+    public int maxGemsReward = 20;
 
-private bool rewardGiven = false;
+    private bool rewardGiven = false;
 
 
     // ============================================================
@@ -256,11 +274,26 @@ private bool rewardGiven = false;
         }
 
 
+        // --------------------------------------------------------
+        // REVIVE BUTTON
+        // --------------------------------------------------------
+
+        if (reviveButton != null)
+        {
+            reviveButton.onClick.RemoveListener(ReviveGame);
+            reviveButton.onClick.AddListener(ReviveGame);
+        }
+
+
+        // --------------------------------------------------------
+        // NEXT BUTTON
+        // --------------------------------------------------------
+
         if (nextButton != null)
-{
-    nextButton.onClick.RemoveListener(GoToNextLevel);
-    nextButton.onClick.AddListener(GoToNextLevel);
-}
+        {
+            nextButton.onClick.RemoveListener(GoToNextLevel);
+            nextButton.onClick.AddListener(GoToNextLevel);
+        }
 
 
         // --------------------------------------------------------
@@ -359,7 +392,21 @@ private bool rewardGiven = false;
 
         gameOver = true;
 
-        ShowRandomGameOverImage(); 
+        ShowRandomGameOverImage();
+
+
+        // --------------------------------------------------------
+        // REVIVE BUTTON STATE
+        // --------------------------------------------------------
+
+        if (reviveButton != null)
+        {
+            bool canRevive =
+                maxRevivesPerLevel <= 0 ||
+                revivesUsed < maxRevivesPerLevel;
+
+            reviveButton.gameObject.SetActive(canRevive);
+        }
 
 
         // --------------------------------------------------------
@@ -378,7 +425,7 @@ private bool rewardGiven = false;
 
         if (gameOverPanel != null)
         {
-            StartCoroutine(
+            gameOverRoutine = StartCoroutine(
                 ShowPanelAfterDelay(
                     gameOverPanel,
                     gameOverDelay
@@ -389,6 +436,67 @@ private bool rewardGiven = false;
         {
             Debug.LogWarning(
                 "GameManager: Game Over Panel is NOT assigned."
+            );
+        }
+    }
+
+
+    // ============================================================
+    // REVIVE GAME
+    // ============================================================
+
+    public void ReviveGame()
+    {
+        if (!gameOver || levelWon)
+            return;
+
+
+        if (maxRevivesPerLevel > 0 && revivesUsed >= maxRevivesPerLevel)
+            return;
+
+
+        revivesUsed++;
+
+
+        // --------------------------------------------------------
+        // STOP PANEL ANIMATION (agar abhi chal rahi ho)
+        // --------------------------------------------------------
+
+        if (gameOverRoutine != null)
+        {
+            StopCoroutine(gameOverRoutine);
+            gameOverRoutine = null;
+        }
+
+
+        Time.timeScale = 1f;
+
+        gameOver = false;
+
+
+        // --------------------------------------------------------
+        // HIDE GAME OVER PANEL
+        // --------------------------------------------------------
+
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(false);
+            gameOverPanel.transform.localScale = Vector3.one;
+        }
+
+
+        // --------------------------------------------------------
+        // SAME PHASE, SAME FRUITS - BAS NAYA KNIFE READY KARO
+        // --------------------------------------------------------
+
+        if (gameManager2 != null)
+        {
+            gameManager2.ReviveKnife();
+        }
+        else
+        {
+            Debug.LogWarning(
+                "GameManager: GameManager2 is NOT assigned."
             );
         }
     }
@@ -530,13 +638,9 @@ private bool rewardGiven = false;
             float timer = 0f;
 
 
-            while (
-                timer <
-                extraPanelAnimationDuration
-            )
+            while (timer < extraPanelAnimationDuration)
             {
-                timer +=
-                    Time.unscaledDeltaTime;
+                timer += Time.unscaledDeltaTime;
 
 
                 float progress =
@@ -547,11 +651,7 @@ private bool rewardGiven = false;
 
 
                 float smoothProgress =
-                    1f -
-                    Mathf.Pow(
-                        1f - progress,
-                        3f
-                    );
+                    1f - Mathf.Pow(1f - progress, 3f);
 
 
                 float scale =
@@ -588,13 +688,9 @@ private bool rewardGiven = false;
                 rect.localScale;
 
 
-            while (
-                timer <
-                extraPanelAnimationDuration
-            )
+            while (timer < extraPanelAnimationDuration)
             {
-                timer +=
-                    Time.unscaledDeltaTime;
+                timer += Time.unscaledDeltaTime;
 
 
                 float progress =
@@ -605,11 +701,7 @@ private bool rewardGiven = false;
 
 
                 float smoothProgress =
-                    1f -
-                    Mathf.Pow(
-                        1f - progress,
-                        3f
-                    );
+                    1f - Mathf.Pow(1f - progress, 3f);
 
 
                 float scale =
@@ -832,13 +924,9 @@ private bool rewardGiven = false;
         // ANIMATE
         // --------------------------------------------------------
 
-        while (
-            timer <
-            animationDuration
-        )
+        while (timer < animationDuration)
         {
-            timer +=
-                Time.unscaledDeltaTime;
+            timer += Time.unscaledDeltaTime;
 
 
             float progress =
@@ -853,11 +941,7 @@ private bool rewardGiven = false;
             // ----------------------------------------------------
 
             float smoothProgress =
-                1f -
-                Mathf.Pow(
-                    1f - progress,
-                    3f
-                );
+                1f - Mathf.Pow(1f - progress, 3f);
 
 
             float scale =
@@ -916,124 +1000,122 @@ private bool rewardGiven = false;
 
 
     // ============================================================
-// UPDATE LEVEL STATUS TEXT
-// ============================================================
-public void UpdateLevelStatusText(int levelNumber, bool completed)
-{
-    if (incompleteLevelText != null)
+    // UPDATE LEVEL STATUS TEXT
+    // ============================================================
+
+    public void UpdateLevelStatusText(int levelNumber, bool completed)
     {
-        incompleteLevelText.gameObject.SetActive(!completed);
-
-        incompleteLevelText.text =
-            "Level " + levelNumber + "\nIncomplete";
-    }
-
-    if (completeLevelText != null)
-    {
-        completeLevelText.gameObject.SetActive(completed);
-
-        completeLevelText.text =
-            "Level " + levelNumber;
-    }
-}
-
-
-// ============================================================
-// GIVE LEVEL COMPLETE REWARDS
-// ============================================================
-
-public void GiveLevelCompleteRewards()
-{
-    if (rewardGiven)
-        return;
-
-    rewardGiven = true;
-
-    int coins = Random.Range(
-        minCoinsReward,
-        maxCoinsReward + 1
-    );
-
-    int gems = Random.Range(
-        minGemsReward,
-        maxGemsReward + 1
-    );
-
-    CoinManager.AddCoins(coins);
-    CoinManager.AddGems(gems);
-
-    Debug.Log("Saved Total -> Coins: " + CoinManager.GetCoins() + ", Gems: " + CoinManager.GetGems());
-
-    if (coinsRewardText != null)
-    {
-        coinsRewardText.text = "+" + coins;
-        coinsRewardText.gameObject.SetActive(true);
-    }
-
-    if (gemsRewardText != null)
-    {
-        gemsRewardText.text = "+" + gems;
-        gemsRewardText.gameObject.SetActive(true);
-    }
-}
-
-
-// ============================================================
-// NEXT LEVEL
-// ============================================================
-
-public void GoToNextLevel()
-{
-    Time.timeScale = 1f;
-
-    int level = PlayerPrefs.GetInt("CurrentLevelNumber", 1);
-    PlayerPrefs.SetInt("CurrentLevelNumber", level + 1);
-    PlayerPrefs.Save();
-
-    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-}
-
-
-// ============================================================
-// SHOW RANDOM GAME OVER IMAGE
-// ============================================================
-
-private void ShowRandomGameOverImage()
-{
-    if (gameOverImage == null)
-    {
-        Debug.LogWarning("GameManager: Game Over Image is NOT assigned.");
-        return;
-    }
-
-    if (gameOverSprites == null || gameOverSprites.Length == 0)
-    {
-        Debug.LogWarning("GameManager: Game Over Sprites array is empty.");
-        return;
-    }
-
-    int index = Random.Range(0, gameOverSprites.Length);
-
-    if (avoidSameImageTwice && gameOverSprites.Length > 1)
-    {
-        int tries = 0;
-
-        while (index == lastGameOverImageIndex && tries < 10)
+        if (incompleteLevelText != null)
         {
-            index = Random.Range(0, gameOverSprites.Length);
-            tries++;
+            incompleteLevelText.gameObject.SetActive(!completed);
+
+            incompleteLevelText.text =
+                "Level " + levelNumber + "\nIncomplete";
+        }
+
+        if (completeLevelText != null)
+        {
+            completeLevelText.gameObject.SetActive(completed);
+
+            completeLevelText.text =
+                "Level " + levelNumber;
         }
     }
 
-    lastGameOverImageIndex = index;
 
-    if (gameOverSprites[index] != null)
+    // ============================================================
+    // GIVE LEVEL COMPLETE REWARDS
+    // ============================================================
+
+    public void GiveLevelCompleteRewards()
     {
-        gameOverImage.sprite = gameOverSprites[index];
-        gameOverImage.enabled = true;
+        if (rewardGiven)
+            return;
+
+        rewardGiven = true;
+
+        int coins = Random.Range(
+            minCoinsReward,
+            maxCoinsReward + 1
+        );
+
+        int gems = Random.Range(
+            minGemsReward,
+            maxGemsReward + 1
+        );
+
+        CoinManager.AddCoins(coins);
+        CoinManager.AddGems(gems);
+
+        Debug.Log("Saved Total -> Coins: " + CoinManager.GetCoins() + ", Gems: " + CoinManager.GetGems());
+
+        if (coinsRewardText != null)
+        {
+            coinsRewardText.text = "+" + coins;
+            coinsRewardText.gameObject.SetActive(true);
+        }
+
+        if (gemsRewardText != null)
+        {
+            gemsRewardText.text = "+" + gems;
+            gemsRewardText.gameObject.SetActive(true);
+        }
+    }
+
+
+    // ============================================================
+    // NEXT LEVEL
+    // ============================================================
+
+    public void GoToNextLevel()
+    {
+        Time.timeScale = 1f;
+
+        int level = PlayerPrefs.GetInt("CurrentLevelNumber", 1);
+        PlayerPrefs.SetInt("CurrentLevelNumber", level + 1);
+        PlayerPrefs.Save();
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+
+    // ============================================================
+    // SHOW RANDOM GAME OVER IMAGE
+    // ============================================================
+
+    private void ShowRandomGameOverImage()
+    {
+        if (gameOverImage == null)
+        {
+            Debug.LogWarning("GameManager: Game Over Image is NOT assigned.");
+            return;
+        }
+
+        if (gameOverSprites == null || gameOverSprites.Length == 0)
+        {
+            Debug.LogWarning("GameManager: Game Over Sprites array is empty.");
+            return;
+        }
+
+        int index = Random.Range(0, gameOverSprites.Length);
+
+        if (avoidSameImageTwice && gameOverSprites.Length > 1)
+        {
+            int tries = 0;
+
+            while (index == lastGameOverImageIndex && tries < 10)
+            {
+                index = Random.Range(0, gameOverSprites.Length);
+                tries++;
+            }
+        }
+
+        lastGameOverImageIndex = index;
+
+        if (gameOverSprites[index] != null)
+        {
+            gameOverImage.sprite = gameOverSprites[index];
+            gameOverImage.enabled = true;
+        }
     }
 }
-}
-
-
-

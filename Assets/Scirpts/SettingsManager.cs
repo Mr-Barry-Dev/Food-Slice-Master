@@ -1,3 +1,4 @@
+// using System.Collections;
 // using UnityEngine;
 // using UnityEngine.UI;
 // using UnityEngine.SceneManagement;
@@ -137,6 +138,49 @@
 
 
 //     // ============================================================
+//     // RESET GAME DATA
+//     // ============================================================
+
+//     [Header("===== RESET GAME DATA =====")]
+
+//     [Tooltip("Reset button.")]
+//     public Button resetButton;
+
+//     [Tooltip("Optional: 'Are you sure?' panel. Khaali chhodo to seedha reset hoga.")]
+//     public GameObject resetConfirmPanel;
+
+//     [Tooltip("Confirm panel ka Yes button.")]
+//     public Button resetYesButton;
+
+//     [Tooltip("Confirm panel ka No button.")]
+//     public Button resetNoButton;
+
+//     [Tooltip("On rakho to reset ke baad Sound, Music aur Graphics Quality ki settings bachi rahengi.")]
+//     public bool keepSoundMusicQuality = true;
+
+
+//     // ============================================================
+//     // RESET PANEL ANIMATION
+//     // ============================================================
+
+//     [Header("===== RESET PANEL ANIMATION =====")]
+
+//     [Tooltip("Panel open/close animation ka time (seconds).")]
+//     public float resetPanelAnimDuration = 0.3f;
+
+//     [Tooltip("Panel is scale se shuru hoga aur close hote waqt isi tak chhota hoga. 0 = button ke andar se nikalta hua.")]
+//     [Range(0f, 1f)]
+//     public float resetPanelStartScale = 0f;
+
+//     [Tooltip("On rakho to panel Reset button ki jagah se nikalega aur No dabane par wapas usi me jayega.")]
+//     public bool resetPanelFromButton = true;
+
+//     private Coroutine resetPanelRoutine;
+//     private Vector3 resetPanelHomePos;
+//     private bool resetPanelHomeCached = false;
+
+
+//     // ============================================================
 //     // SAVED SETTINGS
 //     // ============================================================
 
@@ -240,6 +284,20 @@
 
 //         if (qualitySlider != null)
 //             qualitySlider.onValueChanged.AddListener(SetGraphicsQuality);
+
+//         // ----- RESET -----
+
+//         if (resetConfirmPanel != null)
+//             resetConfirmPanel.SetActive(false);
+
+//         if (resetButton != null)
+//             resetButton.onClick.AddListener(OnResetPressed);
+
+//         if (resetYesButton != null)
+//             resetYesButton.onClick.AddListener(ResetAllGameData);
+
+//         if (resetNoButton != null)
+//             resetNoButton.onClick.AddListener(CancelReset);
 //     }
 
 
@@ -548,6 +606,172 @@
 
 
 //     // ============================================================
+//     // RESET ALL GAME DATA
+//     // ============================================================
+
+//     private void OnResetPressed()
+//     {
+//         if (resetConfirmPanel != null)
+//             AnimateResetPanel(true);
+//         else
+//             ResetAllGameData();
+//     }
+
+
+//     private void CancelReset()
+//     {
+//         if (resetConfirmPanel != null)
+//             AnimateResetPanel(false);
+//     }
+
+
+//     private void AnimateResetPanel(bool opening)
+//     {
+//         if (resetPanelRoutine != null)
+//             StopCoroutine(resetPanelRoutine);
+
+//         resetPanelRoutine = StartCoroutine(ResetPanelRoutine(opening));
+//     }
+
+
+//     private IEnumerator ResetPanelRoutine(bool opening)
+//     {
+//         RectTransform rect = resetConfirmPanel.GetComponent<RectTransform>();
+
+//         if (rect == null)
+//         {
+//             resetConfirmPanel.SetActive(opening);
+//             yield break;
+//         }
+
+//         // Panel ki original (design wali) position pehli baar yaad rakho
+//         if (!resetPanelHomeCached)
+//         {
+//             resetPanelHomePos = rect.position;
+//             resetPanelHomeCached = true;
+//         }
+
+//         // Panel kahan se nikalega / kahan jayega
+//         Vector3 buttonPos = resetPanelHomePos;
+
+//         if (resetPanelFromButton && resetButton != null)
+//             buttonPos = resetButton.transform.position;
+
+//         CanvasGroup group = resetConfirmPanel.GetComponent<CanvasGroup>();
+
+//         if (group == null)
+//             group = resetConfirmPanel.AddComponent<CanvasGroup>();
+
+//         // Start values
+//         Vector3 fromPos;
+//         float fromScale;
+//         float fromAlpha;
+
+//         if (opening && !resetConfirmPanel.activeSelf)
+//         {
+//             resetConfirmPanel.SetActive(true);
+
+//             fromPos = buttonPos;
+//             fromScale = resetPanelStartScale;
+//             fromAlpha = 0f;
+//         }
+//         else
+//         {
+//             // Animation beech me ruki ho to wahin se aage badho
+//             fromPos = rect.position;
+//             fromScale = rect.localScale.x;
+//             fromAlpha = group.alpha;
+//         }
+
+//         // End values
+//         Vector3 toPos = opening ? resetPanelHomePos : buttonPos;
+//         float toScale = opening ? 1f : resetPanelStartScale;
+//         float toAlpha = opening ? 1f : 0f;
+
+//         rect.position = fromPos;
+//         rect.localScale = Vector3.one * fromScale;
+//         group.alpha = fromAlpha;
+
+//         group.interactable = false;
+//         group.blocksRaycasts = false;
+
+//         float duration = Mathf.Max(0.01f, resetPanelAnimDuration);
+//         float timer = 0f;
+
+//         while (timer < duration)
+//         {
+//             timer += Time.unscaledDeltaTime;
+
+//             float p = Mathf.Clamp01(timer / duration);
+
+//             // Open: ease out, Close: ease in
+//             float eased = opening
+//                 ? 1f - Mathf.Pow(1f - p, 3f)
+//                 : p * p * p;
+
+//             rect.position = Vector3.Lerp(fromPos, toPos, eased);
+//             rect.localScale = Vector3.one * Mathf.Lerp(fromScale, toScale, eased);
+//             group.alpha = Mathf.Lerp(fromAlpha, toAlpha, eased);
+
+//             yield return null;
+//         }
+
+//         rect.position = toPos;
+//         rect.localScale = Vector3.one * toScale;
+//         group.alpha = toAlpha;
+
+//         if (opening)
+//         {
+//             group.interactable = true;
+//             group.blocksRaycasts = true;
+//         }
+//         else
+//         {
+//             resetConfirmPanel.SetActive(false);
+
+//             // Agli baar ke liye original state wapas set karo
+//             rect.position = resetPanelHomePos;
+//             rect.localScale = Vector3.one;
+//             group.alpha = 1f;
+//             group.interactable = true;
+//             group.blocksRaycasts = true;
+//         }
+
+//         resetPanelRoutine = null;
+//     }
+
+
+//     public void ResetAllGameData()
+//     {
+//         // Settings pehle se yaad rakho
+//         int sound = PlayerPrefs.GetInt(SOUND_KEY, 1);
+//         int music = PlayerPrefs.GetInt(MUSIC_KEY, 1);
+//         bool hadQuality = PlayerPrefs.HasKey(QUALITY_KEY);
+//         int quality = PlayerPrefs.GetInt(QUALITY_KEY, 0);
+
+//         // Sab kuch delete: level, coins, gems, knife skins, etc.
+//         // PlayerPrefs poore game ke saare scenes ke liye ek hi hota hai.
+//         PlayerPrefs.DeleteAll();
+
+//         if (keepSoundMusicQuality)
+//         {
+//             PlayerPrefs.SetInt(SOUND_KEY, sound);
+//             PlayerPrefs.SetInt(MUSIC_KEY, music);
+
+//             if (hadQuality)
+//                 PlayerPrefs.SetInt(QUALITY_KEY, quality);
+//         }
+
+//         PlayerPrefs.Save();
+
+//         Time.timeScale = 1f;
+
+//         // Scene reload, taaki coin/gem texts aur baaki UI fresh data dikhayein
+//         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+//     }
+
+
+//     // ============================================================
 //     // PLAY GAME SCENE
 //     // ============================================================
 
@@ -600,12 +824,20 @@
 
 //         if (aboutButton != null)
 //             aboutButton.onClick.RemoveListener(OpenAbout);
+
+//         if (resetButton != null)
+//             resetButton.onClick.RemoveListener(OnResetPressed);
+
+//         if (resetYesButton != null)
+//             resetYesButton.onClick.RemoveListener(ResetAllGameData);
+
+//         if (resetNoButton != null)
+//             resetNoButton.onClick.RemoveListener(CancelReset);
 //     }
 // }
 
 
-
-
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -636,16 +868,6 @@ public class SettingsManager : MonoBehaviour
     [Header("===== BUTTON SOUND =====")]
 
     public Button[] soundButtons;
-
-
-    // ============================================================
-    // PLAY BUTTON
-    // ============================================================
-
-    [Header("===== PLAY BUTTON =====")]
-
-    public Button playButton;
-    public string gameSceneName = "GameScene";
 
 
     // ============================================================
@@ -767,6 +989,27 @@ public class SettingsManager : MonoBehaviour
 
 
     // ============================================================
+    // RESET PANEL ANIMATION
+    // ============================================================
+
+    [Header("===== RESET PANEL ANIMATION =====")]
+
+    [Tooltip("Panel open/close animation ka time (seconds).")]
+    public float resetPanelAnimDuration = 0.3f;
+
+    [Tooltip("Panel is scale se shuru hoga aur close hote waqt isi tak chhota hoga. 0 = button ke andar se nikalta hua.")]
+    [Range(0f, 1f)]
+    public float resetPanelStartScale = 0f;
+
+    [Tooltip("On rakho to panel Reset button ki jagah se nikalega aur No dabane par wapas usi me jayega.")]
+    public bool resetPanelFromButton = true;
+
+    private Coroutine resetPanelRoutine;
+    private Vector3 resetPanelHomePos;
+    private bool resetPanelHomeCached = false;
+
+
+    // ============================================================
     // SAVED SETTINGS
     // ============================================================
 
@@ -855,9 +1098,6 @@ public class SettingsManager : MonoBehaviour
                     button.onClick.AddListener(PlayButtonSound);
             }
         }
-
-        if (playButton != null)
-            playButton.onClick.AddListener(PlayGame);
 
         if (privacyButton != null)
             privacyButton.onClick.AddListener(OpenPrivacyPolicy);
@@ -1198,7 +1438,7 @@ public class SettingsManager : MonoBehaviour
     private void OnResetPressed()
     {
         if (resetConfirmPanel != null)
-            resetConfirmPanel.SetActive(true);
+            AnimateResetPanel(true);
         else
             ResetAllGameData();
     }
@@ -1207,7 +1447,123 @@ public class SettingsManager : MonoBehaviour
     private void CancelReset()
     {
         if (resetConfirmPanel != null)
+            AnimateResetPanel(false);
+    }
+
+
+    private void AnimateResetPanel(bool opening)
+    {
+        if (resetPanelRoutine != null)
+            StopCoroutine(resetPanelRoutine);
+
+        resetPanelRoutine = StartCoroutine(ResetPanelRoutine(opening));
+    }
+
+
+    private IEnumerator ResetPanelRoutine(bool opening)
+    {
+        RectTransform rect = resetConfirmPanel.GetComponent<RectTransform>();
+
+        if (rect == null)
+        {
+            resetConfirmPanel.SetActive(opening);
+            yield break;
+        }
+
+        // Panel ki original (design wali) position pehli baar yaad rakho
+        if (!resetPanelHomeCached)
+        {
+            resetPanelHomePos = rect.position;
+            resetPanelHomeCached = true;
+        }
+
+        // Panel kahan se nikalega / kahan jayega
+        Vector3 buttonPos = resetPanelHomePos;
+
+        if (resetPanelFromButton && resetButton != null)
+            buttonPos = resetButton.transform.position;
+
+        CanvasGroup group = resetConfirmPanel.GetComponent<CanvasGroup>();
+
+        if (group == null)
+            group = resetConfirmPanel.AddComponent<CanvasGroup>();
+
+        // Start values
+        Vector3 fromPos;
+        float fromScale;
+        float fromAlpha;
+
+        if (opening && !resetConfirmPanel.activeSelf)
+        {
+            resetConfirmPanel.SetActive(true);
+
+            fromPos = buttonPos;
+            fromScale = resetPanelStartScale;
+            fromAlpha = 0f;
+        }
+        else
+        {
+            // Animation beech me ruki ho to wahin se aage badho
+            fromPos = rect.position;
+            fromScale = rect.localScale.x;
+            fromAlpha = group.alpha;
+        }
+
+        // End values
+        Vector3 toPos = opening ? resetPanelHomePos : buttonPos;
+        float toScale = opening ? 1f : resetPanelStartScale;
+        float toAlpha = opening ? 1f : 0f;
+
+        rect.position = fromPos;
+        rect.localScale = Vector3.one * fromScale;
+        group.alpha = fromAlpha;
+
+        group.interactable = false;
+        group.blocksRaycasts = false;
+
+        float duration = Mathf.Max(0.01f, resetPanelAnimDuration);
+        float timer = 0f;
+
+        while (timer < duration)
+        {
+            timer += Time.unscaledDeltaTime;
+
+            float p = Mathf.Clamp01(timer / duration);
+
+            // Open: ease out, Close: ease in
+            float eased = opening
+                ? 1f - Mathf.Pow(1f - p, 3f)
+                : p * p * p;
+
+            rect.position = Vector3.Lerp(fromPos, toPos, eased);
+            rect.localScale = Vector3.one * Mathf.Lerp(fromScale, toScale, eased);
+            group.alpha = Mathf.Lerp(fromAlpha, toAlpha, eased);
+
+            yield return null;
+        }
+
+        rect.position = toPos;
+        rect.localScale = Vector3.one * toScale;
+        group.alpha = toAlpha;
+
+        if (opening)
+        {
+            group.interactable = true;
+            group.blocksRaycasts = true;
+        }
+        else
+        {
             resetConfirmPanel.SetActive(false);
+
+            // Agli baar ke liye original state wapas set karo
+            rect.position = resetPanelHomePos;
+            rect.localScale = Vector3.one;
+            group.alpha = 1f;
+            group.interactable = true;
+            group.blocksRaycasts = true;
+        }
+
+        resetPanelRoutine = null;
     }
 
 
@@ -1242,24 +1598,6 @@ public class SettingsManager : MonoBehaviour
 
 
     // ============================================================
-    // PLAY GAME SCENE
-    // ============================================================
-
-    public void PlayGame()
-    {
-        if (string.IsNullOrWhiteSpace(gameSceneName))
-        {
-            Debug.LogWarning(
-                "SettingsManager: Game Scene Name assign karo."
-            );
-            return;
-        }
-
-        SceneManager.LoadScene(gameSceneName);
-    }
-
-
-    // ============================================================
     // CLEANUP
     // ============================================================
 
@@ -1282,9 +1620,6 @@ public class SettingsManager : MonoBehaviour
                     button.onClick.RemoveListener(PlayButtonSound);
             }
         }
-
-        if (playButton != null)
-            playButton.onClick.RemoveListener(PlayGame);
 
         if (privacyButton != null)
             privacyButton.onClick.RemoveListener(OpenPrivacyPolicy);

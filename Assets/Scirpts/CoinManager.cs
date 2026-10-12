@@ -1,3 +1,4 @@
+using System.Globalization;
 using UnityEngine;
 using TMPro;
 
@@ -42,6 +43,20 @@ public class CoinManager : MonoBehaviour
     public string gemPrefix = "";
 
     public string gemSuffix = "";
+
+
+    // ============================================================
+    // SHORT NUMBER FORMAT (K, M, B)
+    // ============================================================
+
+    [Header("===== SHORT NUMBER FORMAT =====")]
+
+    [Tooltip("On rakho to 1500 -> 1.5K, 2500000 -> 2.5M, 1200000000 -> 1.2B dikhega.")]
+    public bool useShortFormat = true;
+
+    [Tooltip("Decimal ke baad kitne digits dikhane hain (1.25K me 2).")]
+    [Range(0, 3)]
+    public int decimalPlaces = 2;
 
 
     // ============================================================
@@ -157,13 +172,73 @@ public class CoinManager : MonoBehaviour
 
 
     // ============================================================
+    // NUMBER FORMATTING
+    // ============================================================
+
+    private string FormatForDisplay(int value)
+    {
+        if (!useShortFormat)
+            return value.ToString();
+
+        return FormatNumber(value, decimalPlaces);
+    }
+
+    // Kisi bhi script se use kar sakte ho:
+    // CoinManager.FormatNumber(1500)  ->  "1.5K"
+    public static string FormatNumber(long value, int decimals = 2)
+    {
+        if (value < 0)
+            return "-" + FormatNumber(-value, decimals);
+
+        if (value < 1000)
+            return value.ToString();
+
+        double divisor;
+        string suffix;
+
+        if (value >= 1000000000L)
+        {
+            divisor = 1000000000d;
+            suffix = "B";
+        }
+        else if (value >= 1000000L)
+        {
+            divisor = 1000000d;
+            suffix = "M";
+        }
+        else
+        {
+            divisor = 1000d;
+            suffix = "K";
+        }
+
+        decimals = Mathf.Clamp(decimals, 0, 3);
+
+        double scaled = value / divisor;
+
+        // Round nahi, neeche truncate karte hain (999999 -> 999.99K, 1000K nahi)
+        double factor = System.Math.Pow(10, decimals);
+        scaled = System.Math.Floor(scaled * factor) / factor;
+
+        string format = decimals == 0
+            ? "0"
+            : "0." + new string('#', decimals);
+
+        return scaled.ToString(format, CultureInfo.InvariantCulture) + suffix;
+    }
+
+
+    // ============================================================
     // REFRESH TEXTS
     // ============================================================
 
     public void RefreshAllTexts()
     {
-        string coinString = coinPrefix + GetCoins() + coinSuffix;
-        string gemString = gemPrefix + GetGems() + gemSuffix;
+        string coinString =
+            coinPrefix + FormatForDisplay(GetCoins()) + coinSuffix;
+
+        string gemString =
+            gemPrefix + FormatForDisplay(GetGems()) + gemSuffix;
 
         if (coinTexts != null)
         {

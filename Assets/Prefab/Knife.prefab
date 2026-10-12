@@ -12,14 +12,14 @@ GameObject:
   - component: {fileID: 4021076393167541004}
   - component: {fileID: 7268945689737080110}
   - component: {fileID: 8838439978534314943}
-  - component: {fileID: 8233271720462802592}
+  - component: {fileID: 6495972367980155252}
   m_Layer: 0
   m_Name: Knife
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2544900720849802425
 Transform:
   m_ObjectHideFlags: 0
@@ -153,7 +153,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8233271720462802592
+--- !u!114 &6495972367980155252
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,10 +162,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 746581015323317477}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2f4763412eedc548869a65b70c74930, type: 3}
+  m_Script: {fileID: 11500000, guid: 877f45e04b3166146a3aa413677488dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPoint: {fileID: 6465690237145468547, guid: 6d58835946dbd164394c3452b80af539, type: 3}
-  speed: 12
-  targetY: 8
-  sortingOrder: 100
+  moveSpeed: 12
+  destroyY: 8
+  readyMoveSpeed: 8
+  startOffset: 1.5
+  readyStopDistance: 0.02
+  rotationSpeed: 720
+  gameManager: {fileID: 0}
