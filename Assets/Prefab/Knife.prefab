@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 7268945689737080110}
   - component: {fileID: 8838439978534314943}
   - component: {fileID: 6495972367980155252}
+  - component: {fileID: 1366855708621476558}
   m_Layer: 0
   m_Name: Knife
-  m_TagString: Untagged
+  m_TagString: Knife
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -172,3 +173,20 @@ MonoBehaviour:
   readyStopDistance: 0.02
   rotationSpeed: 720
   gameManager: {fileID: 0}
+--- !u!114 &1366855708621476558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 746581015323317477}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d125c4e23bb2134892dc182853d4312, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minSliceSpeed: 3
+  followPointer: 1
+  needPressHeld: 1
+  followSmooth: 0.8
+  trail: {fileID: 0}

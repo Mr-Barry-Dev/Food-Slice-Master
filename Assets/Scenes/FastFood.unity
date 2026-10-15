@@ -202,7 +202,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1851203310}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: OpenInstagram
         m_Mode: 1
@@ -1411,7 +1411,7 @@ MonoBehaviour:
   m_FillMethod: 4
   m_FillAmount: 1
   m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillOrigin: 3
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!222 &520314063
@@ -1497,6 +1497,93 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &581766360
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 581766362}
+  - component: {fileID: 581766361}
+  m_Layer: 0
+  m_Name: BackGround
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &581766361
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581766360}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -5
+  m_Sprite: {fileID: 4099718819222216066, guid: cfe5d424de143cf46be4eb7628ea17b8, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 10.24, y: 15.36}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &581766362
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581766360}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1961,7 +2048,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1851203310}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: OpenRating
         m_Mode: 1
@@ -3155,7 +3242,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1851203310}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: OpenGmail
         m_Mode: 1
@@ -4033,7 +4120,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1851203310}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: RetryLevel
         m_Mode: 1
@@ -4829,93 +4916,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1579970908}
   m_CullTransparentMesh: 1
---- !u!1 &1599759826
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1599759828}
-  - component: {fileID: 1599759827}
-  m_Layer: 0
-  m_Name: BackGround_2_0
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!212 &1599759827
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1599759826}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: -5
-  m_Sprite: {fileID: 1817689115901117875, guid: 39c5c3c9201c02b4fa25542984ab7988, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 10.4, y: 23.051083}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!4 &1599759828
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1599759826}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 0.9, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1602675264
 GameObject:
   m_ObjectHideFlags: 0
@@ -5156,71 +5156,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1851203311}
-  - component: {fileID: 1851203310}
+  - component: {fileID: 1851203312}
+  - component: {fileID: 1851203313}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: OtherGameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1851203310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1851203309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b98bd40fab724240ab6c4e9b7b08500, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameOverPanel: {fileID: 1761197110}
-  gameOverImage: {fileID: 1566767209}
-  gameOverSprites:
-  - {fileID: 8240648472618411642, guid: d9b5217ce199e1f4ca9d0aa9bb85f5a3, type: 3}
-  - {fileID: 5105872417998669553, guid: 141e7df6c15cc8f4895db24735e7a53c, type: 3}
-  - {fileID: -8192205016850618639, guid: 6121d4239029322439921a16eb3da597, type: 3}
-  - {fileID: -5532984105480972801, guid: 3b92786405e8f204e90da3278d394633, type: 3}
-  - {fileID: 7140561250951838921, guid: c1304df67fea1d048a80925ca78b41d5, type: 3}
-  avoidSameImageTwice: 1
-  incompleteLevelText: {fileID: 1334782079}
-  completeLevelText: {fileID: 900654957}
-  gameManager2: {fileID: 2003357464}
-  winPanel: {fileID: 788839527}
-  extraPanel: {fileID: 401006230}
-  openPanelButton: {fileID: 1574886008}
-  closePanelButton: {fileID: 77105030}
-  retryButton: {fileID: 1860488317}
-  homeButtons:
-  - {fileID: 102814572}
-  - {fileID: 605304201}
-  nextButton: {fileID: 1393300542}
-  reviveButton: {fileID: 603439796}
-  maxRevivesPerLevel: 1
-  instagramButton: {fileID: 50008644}
-  gmailButton: {fileID: 1253844958}
-  ratingButton: {fileID: 681392409}
-  exitButton: {fileID: 1941762171}
-  instagramURL: https://www.instagram.com/barryon_games/
-  gmailAddress: dr.strangh2002@gmail.com
-  ratingURL: https://play.google.com/store/apps/details?id=com.BarryOnGames.FoodSliceMaster&hl=en_IN
-  homeSceneName: Home
-  gameOverDelay: 1
-  winDelay: 1
-  animationDuration: 0.35
-  startScale: 0.7
-  finalScale: 1
-  extraPanelAnimationDuration: 0.3
-  extraPanelStartScale: 0.7
-  extraPanelFinalScale: 1
-  coinsRewardText: {fileID: 1459565028}
-  gemsRewardText: {fileID: 243228036}
-  minCoinsReward: 30
-  maxCoinsReward: 60
-  minGemsReward: 10
-  maxGemsReward: 20
 --- !u!4 &1851203311
 Transform:
   m_ObjectHideFlags: 0
@@ -5236,6 +5180,165 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1851203312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851203309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7e081fea3afbaa438bccdd2c27b7611, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameOverPanel: {fileID: 1761197110}
+  gameOverImage: {fileID: 1566767209}
+  gameOverSprites:
+  - {fileID: -5532984105480972801, guid: 3b92786405e8f204e90da3278d394633, type: 3}
+  - {fileID: 7140561250951838921, guid: c1304df67fea1d048a80925ca78b41d5, type: 3}
+  - {fileID: -8192205016850618639, guid: 6121d4239029322439921a16eb3da597, type: 3}
+  - {fileID: 5105872417998669553, guid: 141e7df6c15cc8f4895db24735e7a53c, type: 3}
+  - {fileID: 8240648472618411642, guid: d9b5217ce199e1f4ca9d0aa9bb85f5a3, type: 3}
+  avoidSameImageTwice: 1
+  incompleteLevelText: {fileID: 1334782079}
+  completeLevelText: {fileID: 900654957}
+  gameManager2: {fileID: 2003357466}
+  winPanel: {fileID: 788839527}
+  extraPanel: {fileID: 401006230}
+  openPanelButton: {fileID: 1941762171}
+  closePanelButton: {fileID: 77105030}
+  retryButton: {fileID: 1860488317}
+  homeButtons:
+  - {fileID: 102814572}
+  - {fileID: 605304201}
+  nextButton: {fileID: 1393300542}
+  reviveButton: {fileID: 603439796}
+  maxRevivesPerLevel: 1
+  instagramButton: {fileID: 50008644}
+  gmailButton: {fileID: 1253844958}
+  ratingButton: {fileID: 681392409}
+  exitButton: {fileID: 1574886008}
+  instagramURL: 'Instagram: https://www.instagram.com/barryon_games/'
+  gmailAddress: mailto:dr.strangh2002@gmail.com
+  ratingURL: https://play.google.com/store/apps/details?id=com.BarryOnGames.FoodSliceMaster&hl=en_IN
+  homeSceneName: Home
+  gameId: FastFood
+  gameOverDelay: 1
+  winDelay: 1
+  gameOverClip: {fileID: 8300000, guid: ee8fa79a8a430cf498598fabeca4ad73, type: 3}
+  winClip: {fileID: 8300000, guid: ab8fd049e0c14924b9e85d7836605e87, type: 3}
+  panelSoundVolume: 1
+  audioSource: {fileID: 1851203313}
+  animationDuration: 0.35
+  startScale: 0.7
+  finalScale: 1
+  extraPanelAnimationDuration: 0.3
+  extraPanelStartScale: 0.7
+  extraPanelFinalScale: 1
+  coinsRewardText: {fileID: 1459565028}
+  gemsRewardText: {fileID: 243228036}
+  minCoinsReward: 30
+  maxCoinsReward: 60
+  minGemsReward: 10
+  maxGemsReward: 20
+--- !u!82 &1851203313
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851203309}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: ab8fd049e0c14924b9e85d7836605e87, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1860488315
 GameObject:
   m_ObjectHideFlags: 0
@@ -5439,7 +5542,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1851203310}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: ExitGame
         m_Mode: 1
@@ -5635,64 +5738,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2003357465}
-  - component: {fileID: 2003357464}
+  - component: {fileID: 2003357466}
+  - component: {fileID: 2003357467}
   m_Layer: 0
-  m_Name: GameManager2
+  m_Name: OtherGameManager2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2003357464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2003357463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 115ecc7bd6f39a540abd02db74f76c48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelText: {fileID: 1579970910}
-  progressImage: {fileID: 370517783}
-  gameManager: {fileID: 1851203310}
-  fruitSpawnPoint: {fileID: 1278013053}
-  knifePrefab: {fileID: 1469971280071283686, guid: 628408c5296119c4a8884c31ff5117a4, type: 3}
-  knifeSpawnPoint: {fileID: 4035309130137528301}
-  knifeMoveSpeed: 20
-  knifeRotationSpeed: 1000
-  knifeDestroyY: 8
-  knifeStartOffset: 1.5
-  knifeReadyMoveSpeed: 8
-  oneKnifeAtATime: 1
-  circleSettings:
-    fruitPrefabs:
-    - {fileID: 7388587118229623499, guid: 59e90656b15716748a1570a59922e528, type: 3}
-    fruitCount: 1
-    radius: 1.3
-    fruitGap: 0.3
-  squareSettings:
-    fruitPrefabs:
-    - {fileID: 7388587118229623499, guid: 59e90656b15716748a1570a59922e528, type: 3}
-    fruitCount: 1
-    fruitGap: 1
-  triangleSettings:
-    fruitPrefabs:
-    - {fileID: 7388587118229623499, guid: 59e90656b15716748a1570a59922e528, type: 3}
-    fruitCount: 1
-    fruitGap: 0.8
-  rectangleSettings:
-    fruitPrefabs:
-    - {fileID: 7388587118229623499, guid: 59e90656b15716748a1570a59922e528, type: 3}
-    fruitCount: 1
-    fruitGap: 0.8
-  testMode: 0
-  testShape: 3
-  shapeRotation: {fileID: 783767900}
-  startingProgress: 0.1
-  nextShapeDelay: 1.5
 --- !u!4 &2003357465
 Transform:
   m_ObjectHideFlags: 0
@@ -5708,6 +5762,169 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2003357466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2003357463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7377ccd5c489e9742b76467cc7f1ff29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelText: {fileID: 1579970910}
+  progressImage: {fileID: 370517783}
+  gameManager: {fileID: 1851203312}
+  fruitSpawnPoint: {fileID: 1278013053}
+  knifePrefab: {fileID: 746581015323317477, guid: ba17bcae9d6afcd408b495d91f79ee68, type: 3}
+  knifeSpawnPoint: {fileID: 4035309130137528301}
+  knifeMoveSpeed: 20
+  knifeRotationSpeed: 1000
+  knifeDestroyY: 8
+  knifeStartOffset: 1.5
+  knifeReadyMoveSpeed: 8
+  oneKnifeAtATime: 1
+  knifeFireClip: {fileID: 8300000, guid: b75a5edf3657d5248adef0068a10f4e9, type: 3}
+  knifeFireVolume: 0.15
+  audioSource: {fileID: 2003357467}
+  circleSettings:
+    fruitPrefabs:
+    - {fileID: 7388587118229623499, guid: 59e90656b15716748a1570a59922e528, type: 3}
+    fruitCount: 7
+    radius: 1.3
+    fruitGap: 0.2
+  squareSettings:
+    fruitPrefabs:
+    - {fileID: 7388587118229623499, guid: 59e90656b15716748a1570a59922e528, type: 3}
+    fruitCount: 9
+    fruitGap: 1
+  triangleSettings:
+    fruitPrefabs:
+    - {fileID: 7388587118229623499, guid: 59e90656b15716748a1570a59922e528, type: 3}
+    fruitCount: 6
+    fruitGap: 1
+  rectangleSettings:
+    fruitPrefabs:
+    - {fileID: 7388587118229623499, guid: 59e90656b15716748a1570a59922e528, type: 3}
+    fruitCount: 6
+    fruitGap: 1
+  testMode: 0
+  testShape: 0
+  shapeRotation: {fileID: 783767900}
+  randomShapeOrderPerLevel: 1
+  threeShapesUntilLevel: 5
+  fourShapesUntilLevel: 15
+  fiveShapesUntilLevel: 25
+  startingProgress: 0.1
+  showMultiHitNumbers: 1
+  hitNumberPrefab: {fileID: 3219698770566904331, guid: 3725fcc5b2de86a4189168c5582e175d, type: 3}
+  hitNumberDuration: 1
+  hitNumberFlyDistance: 1
+  hitNumberFontSize: 8
+  hitNumberColor: {r: 0, g: 0, b: 0, a: 1}
+  hitNumberSortingOrder: 200
+  hitNumberSortingLayerName: 
+  hitNumberCanvas: {fileID: 1267217509}
+  nextShapeDelay: 1.3
+--- !u!82 &2003357467
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2003357463}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: ef292c30912ac094d96d07a8909f1ac0, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2009450565
 GameObject:
   m_ObjectHideFlags: 0
@@ -6126,7 +6343,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 302841283}
-  - {fileID: 1599759828}
+  - {fileID: 581766362}
   - {fileID: 1267217510}
   - {fileID: 527159459}
   - {fileID: 1278013053}

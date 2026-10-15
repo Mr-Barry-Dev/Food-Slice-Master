@@ -239,6 +239,40 @@
 
 
 //     // ============================================================
+//     // MULTI HIT FLYING NUMBERS
+//     // ============================================================
+
+//     [Header("===== MULTI HIT NUMBERS =====")]
+
+//     [Tooltip("ON: ek knife se 1 se jyada fruits hit hone par +1, +2, +3... flying numbers dikhenge.")]
+//     public bool showMultiHitNumbers = true;
+
+//     [Tooltip("Optional: apna TextMeshPro (3D) prefab. Khali chhodo to number code se ban jayega.")]
+//     public GameObject hitNumberPrefab;
+
+//     [Tooltip("Number kitni der (seconds) dikhega.")]
+//     public float hitNumberDuration = 1f;
+
+//     [Tooltip("Number kitna upar udega (world units).")]
+//     public float hitNumberFlyDistance = 1f;
+
+//     [Tooltip("Number ka font size (sirf code se bane number ke liye).")]
+//     public float hitNumberFontSize = 8f;
+
+//     [Tooltip("Number ka color (sirf code se bane number ke liye).")]
+//     public Color hitNumberColor = Color.yellow;
+
+//     [Tooltip("Number ki sorting order (fruits aur knife ke upar dikhne ke liye).")]
+//     public int hitNumberSortingOrder = 200;
+
+//     [Tooltip("Optional: fruits/knife jis Sorting Layer par hain uska naam (khali = Default).")]
+//     public string hitNumberSortingLayerName = "";
+
+//     [Tooltip("Optional: agar prefab UI (TextMeshPro - Text (UI)) hai to ye Canvas use hoga. Khali chhodo to Level Text wala Canvas use hoga.")]
+//     public Canvas hitNumberCanvas;
+
+
+//     // ============================================================
 //     // NEXT SHAPE DELAY
 //     // ============================================================
 
@@ -288,6 +322,10 @@
 //     private GameObject currentKnife;
 
 //     private bool currentKnifeHitFruit = false;
+
+//     // Is knife ne jin fruits ko hit kiya unki world positions
+//     private List<Vector3> currentKnifeHitPositions =
+//         new List<Vector3>();
 
 //     private const string LEVEL_KEY = "CurrentLevelNumber";
 // private int currentLevelNumber = 1;
@@ -503,6 +541,8 @@
 //         // --------------------------------------------------------
 
 //         currentKnifeHitFruit = false;
+
+//         currentKnifeHitPositions.Clear();
 
 
 //         // --------------------------------------------------------
@@ -879,6 +919,10 @@
 //         // --------------------------------------------------------
 
 //         currentKnifeHitFruit = true;
+
+
+//         // Flying number ke liye hit position (fruit destroy hone se pehle)
+//         RegisterKnifeHit(fruit.transform.position);
 
 
 //         // --------------------------------------------------------
@@ -2119,6 +2163,323 @@
 
 
 //     // ============================================================
+//     // MULTI HIT FLYING NUMBERS
+//     // ============================================================
+
+//     private void RegisterKnifeHit(Vector3 worldPosition)
+//     {
+//         currentKnifeHitPositions.Add(worldPosition);
+
+//         if (!showMultiHitNumbers)
+//             return;
+
+
+//         int hitCount =
+//             currentKnifeHitPositions.Count;
+
+
+//         if (hitCount == 2)
+//         {
+//             // Dusra fruit hit hua: pehle wale par +1 aur dusre par +2
+//             SpawnHitNumber(currentKnifeHitPositions[0], 1);
+//             SpawnHitNumber(currentKnifeHitPositions[1], 2);
+//         }
+//         else if (hitCount > 2)
+//         {
+//             // Aage ke fruits par +3, +4...
+//             SpawnHitNumber(worldPosition, hitCount);
+//         }
+//     }
+
+
+//     private void SpawnHitNumber(
+//         Vector3 worldPosition,
+//         int number)
+//     {
+//         GameObject obj;
+
+//         TMP_Text text;
+
+//         Canvas uiCanvas = null;
+
+
+//         if (hitNumberPrefab != null)
+//         {
+//             obj =
+//                 Instantiate(
+//                     hitNumberPrefab,
+//                     worldPosition,
+//                     Quaternion.identity
+//                 );
+
+//             // Prefab inactive ho to bhi dikhe
+//             obj.SetActive(true);
+
+//             text =
+//                 obj.GetComponentInChildren<TMP_Text>(true);
+
+
+//             if (text == null)
+//             {
+//                 Debug.LogWarning(
+//                     "GameManager2: Hit Number Prefab me TextMeshPro nahi mila."
+//                 );
+
+//                 Destroy(obj);
+
+//                 return;
+//             }
+
+
+//             if (text is TextMeshProUGUI)
+//             {
+//                 // UI text bina Canvas ke screen par nahi dikhta,
+//                 // isliye isse Canvas ke andar daalte hain.
+//                 uiCanvas = GetHitNumberCanvas();
+
+//                 if (uiCanvas == null)
+//                 {
+//                     Debug.LogWarning(
+//                         "GameManager2: Hit Number Prefab UI hai par scene me Canvas nahi mila."
+//                     );
+
+//                     Destroy(obj);
+
+//                     return;
+//                 }
+
+//                 obj.transform.SetParent(
+//                     uiCanvas.transform,
+//                     false
+//                 );
+
+//                 obj.transform.SetAsLastSibling();
+
+//                 SetUIPositionFromWorld(
+//                     obj.transform as RectTransform,
+//                     uiCanvas,
+//                     worldPosition
+//                 );
+//             }
+//             else
+//             {
+//                 // World text: fruits ke upar dikhe
+//                 TextMeshPro worldPrefabText =
+//                     text as TextMeshPro;
+
+//                 if (worldPrefabText != null)
+//                 {
+//                     ApplyHitNumberSorting(worldPrefabText);
+//                 }
+//             }
+//         }
+//         else
+//         {
+//             obj = new GameObject("HitNumber");
+
+//             obj.transform.position = worldPosition;
+
+//             TextMeshPro worldText =
+//                 obj.AddComponent<TextMeshPro>();
+
+//             worldText.fontSize = hitNumberFontSize;
+//             worldText.fontStyle = FontStyles.Bold;
+//             worldText.alignment = TextAlignmentOptions.Center;
+//             worldText.color = hitNumberColor;
+
+//             ApplyHitNumberSorting(worldText);
+
+//             text = worldText;
+//         }
+
+
+//         // Prefab ka alpha 0 ho to bhi number dikhe
+//         Color startColor = text.color;
+
+//         if (startColor.a < 0.01f)
+//         {
+//             startColor.a = 1f;
+//             text.color = startColor;
+//         }
+
+
+//         text.text = "+" + number;
+
+
+//         StartCoroutine(
+//             FlyHitNumber(
+//                 obj,
+//                 text,
+//                 worldPosition,
+//                 uiCanvas
+//             )
+//         );
+//     }
+
+
+//     private void ApplyHitNumberSorting(TextMeshPro worldText)
+//     {
+//         worldText.sortingOrder = hitNumberSortingOrder;
+
+//         if (!string.IsNullOrEmpty(hitNumberSortingLayerName))
+//         {
+//             worldText.sortingLayerID =
+//                 SortingLayer.NameToID(hitNumberSortingLayerName);
+//         }
+//     }
+
+
+//     private Canvas GetHitNumberCanvas()
+//     {
+//         Canvas canvas = hitNumberCanvas;
+
+//         if (canvas == null && levelText != null)
+//         {
+//             canvas = levelText.canvas;
+//         }
+
+//         if (canvas == null)
+//         {
+//             canvas = FindFirstObjectByType<Canvas>();
+//         }
+
+//         if (canvas == null)
+//             return null;
+
+//         return canvas.rootCanvas;
+//     }
+
+
+//     // World position ko Canvas ke andar UI position me badalta hai
+//     private void SetUIPositionFromWorld(
+//         RectTransform rect,
+//         Canvas canvas,
+//         Vector3 worldPosition)
+//     {
+//         if (rect == null || canvas == null)
+//             return;
+
+
+//         Camera worldCamera = Camera.main;
+
+//         if (worldCamera == null)
+//             worldCamera = canvas.worldCamera;
+
+//         if (worldCamera == null)
+//             return;
+
+
+//         Vector2 screenPoint =
+//             worldCamera.WorldToScreenPoint(worldPosition);
+
+
+//         if (canvas.renderMode == RenderMode.ScreenSpaceOverlay)
+//         {
+//             rect.position = screenPoint;
+//         }
+//         else
+//         {
+//             Vector3 canvasPoint;
+
+//             if (
+//                 RectTransformUtility.ScreenPointToWorldPointInRectangle(
+//                     canvas.transform as RectTransform,
+//                     screenPoint,
+//                     canvas.worldCamera,
+//                     out canvasPoint
+//                 )
+//             )
+//             {
+//                 rect.position = canvasPoint;
+//             }
+//         }
+//     }
+
+
+//     private IEnumerator FlyHitNumber(
+//         GameObject obj,
+//         TMP_Text text,
+//         Vector3 startWorld,
+//         Canvas uiCanvas)
+//     {
+//         float duration =
+//             Mathf.Max(0.05f, hitNumberDuration);
+
+//         Vector3 endWorld =
+//             startWorld +
+//             Vector3.up * hitNumberFlyDistance;
+
+//         Color baseColor =
+//             text.color;
+
+//         float timer = 0f;
+
+
+//         while (timer < duration)
+//         {
+//             if (obj == null)
+//                 yield break;
+
+
+//             timer += Time.deltaTime;
+
+//             float t =
+//                 Mathf.Clamp01(timer / duration);
+
+
+//             // Upar ud ta hua (ease out)
+//             float eased =
+//                 1f - Mathf.Pow(1f - t, 2f);
+
+//             Vector3 currentWorld =
+//                 Vector3.Lerp(
+//                     startWorld,
+//                     endWorld,
+//                     eased
+//                 );
+
+
+//             if (uiCanvas != null)
+//             {
+//                 SetUIPositionFromWorld(
+//                     obj.transform as RectTransform,
+//                     uiCanvas,
+//                     currentWorld
+//                 );
+//             }
+//             else
+//             {
+//                 obj.transform.position = currentWorld;
+//             }
+
+
+//             // Aakhri half me fade out
+//             float alpha =
+//                 t < 0.5f
+//                     ? 1f
+//                     : 1f - ((t - 0.5f) / 0.5f);
+
+//             text.color =
+//                 new Color(
+//                     baseColor.r,
+//                     baseColor.g,
+//                     baseColor.b,
+//                     baseColor.a * alpha
+//                 );
+
+
+//             yield return null;
+//         }
+
+
+//         if (obj != null)
+//         {
+//             Destroy(obj);
+//         }
+//     }
+
+
+//     // ============================================================
 //     // ON DESTROY
 //     // ============================================================
 
@@ -2339,6 +2700,25 @@ public class GameManager2 : MonoBehaviour
 
 
     // ============================================================
+    // SOUND
+    // ============================================================
+
+    [Header("===== SOUND =====")]
+
+    [Tooltip("Knife fire hone par ye sound bajega.")]
+    public AudioClip knifeFireClip;
+
+    [Range(0f, 1f)]
+    public float knifeFireVolume = 1f;
+
+    [Tooltip("Optional. Khali chhodo to Main Camera ki position par play hoga.")]
+    public AudioSource audioSource;
+
+    // Ek hi knife ke liye sound do baar na baje
+    private GameObject lastFiredKnife;
+
+
+    // ============================================================
     // SHAPE SETTINGS
     // ============================================================
 
@@ -2501,7 +2881,7 @@ public class GameManager2 : MonoBehaviour
         new List<Vector3>();
 
     private const string LEVEL_KEY = "CurrentLevelNumber";
-private int currentLevelNumber = 1;
+    private int currentLevelNumber = 1;
 
 
     // ============================================================
@@ -2881,6 +3261,43 @@ private int currentLevelNumber = 1;
 
 
         controller.Fire();
+
+
+        // Sound sirf pehli baar fire hone par (har knife ke liye ek baar)
+        if (lastFiredKnife != currentKnife)
+        {
+            lastFiredKnife = currentKnife;
+
+            PlayKnifeFireSound();
+        }
+    }
+
+
+    // ============================================================
+    // KNIFE FIRE SOUND
+    // ============================================================
+
+    private void PlayKnifeFireSound()
+    {
+        if (knifeFireClip == null)
+            return;
+
+
+        if (audioSource != null)
+        {
+            audioSource.PlayOneShot(
+                knifeFireClip,
+                knifeFireVolume
+            );
+        }
+        else if (Camera.main != null)
+        {
+            AudioSource.PlayClipAtPoint(
+                knifeFireClip,
+                Camera.main.transform.position,
+                knifeFireVolume
+            );
+        }
     }
 
 
@@ -3253,7 +3670,7 @@ private int currentLevelNumber = 1;
         FormationType formation =
             phaseOrder[currentPhase];
 
-        
+
         UpdateLevelStatus(false);
         StartNormalFormation(
             formation
@@ -3265,10 +3682,10 @@ private int currentLevelNumber = 1;
     // NORMAL FORMATION
     // ============================================================
 
-   private void StartNormalFormation(FormationType formationType)
-{
-    SpawnFormation(formationType);
-}
+    private void StartNormalFormation(FormationType formationType)
+    {
+        SpawnFormation(formationType);
+    }
 
 
     // ============================================================
@@ -3276,10 +3693,10 @@ private int currentLevelNumber = 1;
     // ============================================================
 
     private void StartTestShape()
-{
-    testCompleted = false;
-    SpawnFormation((FormationType)(int)testShape);
-}
+    {
+        testCompleted = false;
+        SpawnFormation((FormationType)(int)testShape);
+    }
 
 
     // ============================================================
@@ -4112,8 +4529,8 @@ private int currentLevelNumber = 1;
 
         if (gameManager != null)
         {
-           gameManager.GiveLevelCompleteRewards();
-           gameManager.ShowWin();
+            gameManager.GiveLevelCompleteRewards();
+            gameManager.ShowWin();
         }
     }
 
@@ -4666,39 +5083,40 @@ private int currentLevelNumber = 1;
 
 
     // ============================================================
-// UPDATE LEVEL STATUS
-// ============================================================
+    // UPDATE LEVEL STATUS
+    // ============================================================
 
-private void UpdateLevelStatus(bool completed)
-{
-    if (gameManager == null)
-        return;
-
-    // Real level number PlayerPrefs se, shape index se nahi
-    int levelNumber = PlayerPrefs.GetInt(LEVEL_KEY, 1);
-
-    gameManager.UpdateLevelStatusText(
-        levelNumber,
-        completed
-    );
-}
-
-// ============================================================
-// REVIVE KNIFE
-// ============================================================
-
-public void ReviveKnife()
-{
-    if (levelCompleted)
-        return;
-
-    // Agar koi purana knife bacha ho to hata do
-    if (currentKnife != null)
+    private void UpdateLevelStatus(bool completed)
     {
-        Destroy(currentKnife);
-        currentKnife = null;
+        if (gameManager == null)
+            return;
+
+        // Real level number PlayerPrefs se, shape index se nahi
+        int levelNumber = PlayerPrefs.GetInt(LEVEL_KEY, 1);
+
+        gameManager.UpdateLevelStatusText(
+            levelNumber,
+            completed
+        );
     }
 
-    CreateReadyKnife();
-}
+
+    // ============================================================
+    // REVIVE KNIFE
+    // ============================================================
+
+    public void ReviveKnife()
+    {
+        if (levelCompleted)
+            return;
+
+        // Agar koi purana knife bacha ho to hata do
+        if (currentKnife != null)
+        {
+            Destroy(currentKnife);
+            currentKnife = null;
+        }
+
+        CreateReadyKnife();
+    }
 }

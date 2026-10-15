@@ -1,4 +1,5 @@
 // using System.Collections;
+// using System.Collections.Generic;
 // using UnityEngine;
 // using UnityEngine.UI;
 // using UnityEngine.SceneManagement;
@@ -12,6 +13,7 @@
 
 //     [Header("===== AUDIO SOURCES =====")]
 
+//     [Tooltip("Button click sound ke liye. Khali chhodo to code khud AudioSource bana lega.")]
 //     public AudioSource soundSource;
 //     public AudioSource musicSource;
 
@@ -28,17 +30,14 @@
 
 //     [Header("===== BUTTON SOUND =====")]
 
+//     [Tooltip("Ye buttons dabane par click sound bajega.")]
 //     public Button[] soundButtons;
 
+//     [Tooltip("ON: scene ke SAARE buttons (inactive panels ke bhi) par click sound apne aap lag jayega. Array me buttons daalne ki zarurat nahi.")]
+//     public bool autoFindAllButtons = true;
 
-//     // ============================================================
-//     // PLAY BUTTON
-//     // ============================================================
-
-//     [Header("===== PLAY BUTTON =====")]
-
-//     public Button playButton;
-//     public string gameSceneName = "GameScene";
+//     // Jin buttons par sound listener lag chuka hai
+//     private readonly List<Button> trackedButtons = new List<Button>();
 
 
 //     // ============================================================
@@ -218,11 +217,20 @@
 //         soundEnabled = PlayerPrefs.GetInt(SOUND_KEY, 1) == 1;
 //         musicEnabled = PlayerPrefs.GetInt(MUSIC_KEY, 1) == 1;
 
-//         if (soundSource != null)
+//         // Sound source assign nahi hai to apna bana lo
+//         if (soundSource == null)
 //         {
-//             soundSource.playOnAwake = false;
-//             soundSource.loop = false;
+//             soundSource = gameObject.AddComponent<AudioSource>();
+
+//             Debug.Log(
+//                 "SettingsManager: Sound Source assign nahi tha, isliye automatic AudioSource bana diya."
+//             );
 //         }
+
+//         soundSource.playOnAwake = false;
+//         soundSource.loop = false;
+//         soundSource.mute = false;
+//         soundSource.spatialBlend = 0f;
 
 //         if (musicSource != null)
 //         {
@@ -261,17 +269,7 @@
 //         if (musicToggle != null)
 //             musicToggle.onValueChanged.AddListener(SetMusicEnabled);
 
-//         if (soundButtons != null)
-//         {
-//             foreach (Button button in soundButtons)
-//             {
-//                 if (button != null)
-//                     button.onClick.AddListener(PlayButtonSound);
-//             }
-//         }
-
-//         if (playButton != null)
-//             playButton.onClick.AddListener(PlayGame);
+//         RegisterSoundButtons();
 
 //         if (privacyButton != null)
 //             privacyButton.onClick.AddListener(OpenPrivacyPolicy);
@@ -302,6 +300,52 @@
 
 
 //     // ============================================================
+//     // REGISTER BUTTON SOUND
+//     // ============================================================
+
+//     private void RegisterSoundButtons()
+//     {
+//         // Inspector me diye gaye buttons
+//         if (soundButtons != null)
+//         {
+//             foreach (Button button in soundButtons)
+//             {
+//                 TrackButton(button);
+//             }
+//         }
+
+//         // Scene ke saare buttons (inactive wale bhi)
+//         if (autoFindAllButtons)
+//         {
+//             Button[] allButtons =
+//                 FindObjectsByType<Button>(
+//                     FindObjectsInactive.Include,
+//                     FindObjectsSortMode.None
+//                 );
+
+//             foreach (Button button in allButtons)
+//             {
+//                 TrackButton(button);
+//             }
+//         }
+//     }
+
+
+//     private void TrackButton(Button button)
+//     {
+//         if (button == null)
+//             return;
+
+//         // Ek button par sound do baar na lage
+//         if (trackedButtons.Contains(button))
+//             return;
+
+//         button.onClick.AddListener(PlayButtonSound);
+//         trackedButtons.Add(button);
+//     }
+
+
+//     // ============================================================
 //     // BUTTON SOUND
 //     // ============================================================
 
@@ -310,10 +354,28 @@
 //         if (!soundEnabled)
 //             return;
 
-//         if (soundSource == null || buttonClickClip == null)
-//             return;
+//         if (buttonClickClip == null)
+//         {
+//             Debug.LogWarning(
+//                 "SettingsManager: Button Click Clip assign nahi hai."
+//             );
 
-//         soundSource.PlayOneShot(buttonClickClip, buttonVolume);
+//             return;
+//         }
+
+//         if (soundSource != null && soundSource.isActiveAndEnabled)
+//         {
+//             soundSource.PlayOneShot(buttonClickClip, buttonVolume);
+//         }
+//         else if (Camera.main != null)
+//         {
+//             // Sound Source inactive ho to bhi sound bajega
+//             AudioSource.PlayClipAtPoint(
+//                 buttonClickClip,
+//                 Camera.main.transform.position,
+//                 buttonVolume
+//             );
+//         }
 //     }
 
 
@@ -772,24 +834,6 @@
 
 
 //     // ============================================================
-//     // PLAY GAME SCENE
-//     // ============================================================
-
-//     public void PlayGame()
-//     {
-//         if (string.IsNullOrWhiteSpace(gameSceneName))
-//         {
-//             Debug.LogWarning(
-//                 "SettingsManager: Game Scene Name assign karo."
-//             );
-//             return;
-//         }
-
-//         SceneManager.LoadScene(gameSceneName);
-//     }
-
-
-//     // ============================================================
 //     // CLEANUP
 //     // ============================================================
 
@@ -804,17 +848,13 @@
 //         if (qualitySlider != null)
 //             qualitySlider.onValueChanged.RemoveListener(SetGraphicsQuality);
 
-//         if (soundButtons != null)
+//         foreach (Button button in trackedButtons)
 //         {
-//             foreach (Button button in soundButtons)
-//             {
-//                 if (button != null)
-//                     button.onClick.RemoveListener(PlayButtonSound);
-//             }
+//             if (button != null)
+//                 button.onClick.RemoveListener(PlayButtonSound);
 //         }
 
-//         if (playButton != null)
-//             playButton.onClick.RemoveListener(PlayGame);
+//         trackedButtons.Clear();
 
 //         if (privacyButton != null)
 //             privacyButton.onClick.RemoveListener(OpenPrivacyPolicy);
@@ -838,6 +878,7 @@
 
 
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -851,6 +892,7 @@ public class SettingsManager : MonoBehaviour
 
     [Header("===== AUDIO SOURCES =====")]
 
+    [Tooltip("Button click sound ke liye. Khali chhodo to code khud AudioSource bana lega.")]
     public AudioSource soundSource;
     public AudioSource musicSource;
 
@@ -867,7 +909,14 @@ public class SettingsManager : MonoBehaviour
 
     [Header("===== BUTTON SOUND =====")]
 
+    [Tooltip("Ye buttons dabane par click sound bajega.")]
     public Button[] soundButtons;
+
+    [Tooltip("ON: scene ke SAARE buttons (inactive panels ke bhi) par click sound apne aap lag jayega. Array me buttons daalne ki zarurat nahi.")]
+    public bool autoFindAllButtons = true;
+
+    // Jin buttons par sound listener lag chuka hai
+    private readonly List<Button> trackedButtons = new List<Button>();
 
 
     // ============================================================
@@ -1013,8 +1062,8 @@ public class SettingsManager : MonoBehaviour
     // SAVED SETTINGS
     // ============================================================
 
-    private const string SOUND_KEY = "FSM_SOUND_STATE";
-    private const string MUSIC_KEY = "FSM_MUSIC_STATE";
+    private const string SOUND_KEY = GameAudio.SOUND_KEY;
+    private const string MUSIC_KEY = GameAudio.MUSIC_KEY;
 
     private bool soundEnabled = true;
     private bool musicEnabled = true;
@@ -1047,11 +1096,19 @@ public class SettingsManager : MonoBehaviour
         soundEnabled = PlayerPrefs.GetInt(SOUND_KEY, 1) == 1;
         musicEnabled = PlayerPrefs.GetInt(MUSIC_KEY, 1) == 1;
 
-        if (soundSource != null)
+        // Sound source assign nahi hai to apna bana lo
+        if (soundSource == null)
         {
-            soundSource.playOnAwake = false;
-            soundSource.loop = false;
+            soundSource = gameObject.AddComponent<AudioSource>();
+
+            Debug.Log(
+                "SettingsManager: Sound Source assign nahi tha, isliye automatic AudioSource bana diya."
+            );
         }
+
+        soundSource.playOnAwake = false;
+        soundSource.loop = false;
+        soundSource.spatialBlend = 0f;
 
         if (musicSource != null)
         {
@@ -1090,14 +1147,7 @@ public class SettingsManager : MonoBehaviour
         if (musicToggle != null)
             musicToggle.onValueChanged.AddListener(SetMusicEnabled);
 
-        if (soundButtons != null)
-        {
-            foreach (Button button in soundButtons)
-            {
-                if (button != null)
-                    button.onClick.AddListener(PlayButtonSound);
-            }
-        }
+        RegisterSoundButtons();
 
         if (privacyButton != null)
             privacyButton.onClick.AddListener(OpenPrivacyPolicy);
@@ -1124,6 +1174,55 @@ public class SettingsManager : MonoBehaviour
 
         if (resetNoButton != null)
             resetNoButton.onClick.AddListener(CancelReset);
+
+        // Is scene ke saare AudioSources par saved Sound/Music setting lagao
+        GameAudio.ApplyToScene();
+    }
+
+
+    // ============================================================
+    // REGISTER BUTTON SOUND
+    // ============================================================
+
+    private void RegisterSoundButtons()
+    {
+        // Inspector me diye gaye buttons
+        if (soundButtons != null)
+        {
+            foreach (Button button in soundButtons)
+            {
+                TrackButton(button);
+            }
+        }
+
+        // Scene ke saare buttons (inactive wale bhi)
+        if (autoFindAllButtons)
+        {
+            Button[] allButtons =
+                FindObjectsByType<Button>(
+                    FindObjectsInactive.Include,
+                    FindObjectsSortMode.None
+                );
+
+            foreach (Button button in allButtons)
+            {
+                TrackButton(button);
+            }
+        }
+    }
+
+
+    private void TrackButton(Button button)
+    {
+        if (button == null)
+            return;
+
+        // Ek button par sound do baar na lage
+        if (trackedButtons.Contains(button))
+            return;
+
+        button.onClick.AddListener(PlayButtonSound);
+        trackedButtons.Add(button);
     }
 
 
@@ -1136,10 +1235,28 @@ public class SettingsManager : MonoBehaviour
         if (!soundEnabled)
             return;
 
-        if (soundSource == null || buttonClickClip == null)
-            return;
+        if (buttonClickClip == null)
+        {
+            Debug.LogWarning(
+                "SettingsManager: Button Click Clip assign nahi hai."
+            );
 
-        soundSource.PlayOneShot(buttonClickClip, buttonVolume);
+            return;
+        }
+
+        if (soundSource != null && soundSource.isActiveAndEnabled)
+        {
+            soundSource.PlayOneShot(buttonClickClip, buttonVolume);
+        }
+        else if (Camera.main != null)
+        {
+            // Sound Source inactive ho to bhi sound bajega
+            AudioSource.PlayClipAtPoint(
+                buttonClickClip,
+                Camera.main.transform.position,
+                buttonVolume
+            );
+        }
     }
 
 
@@ -1151,8 +1268,8 @@ public class SettingsManager : MonoBehaviour
     {
         soundEnabled = enabled;
 
-        PlayerPrefs.SetInt(SOUND_KEY, enabled ? 1 : 0);
-        PlayerPrefs.Save();
+        // Global save + saare AudioSources par apply
+        GameAudio.SetSoundEnabled(enabled);
 
         UpdateSoundSwitch();
     }
@@ -1166,8 +1283,8 @@ public class SettingsManager : MonoBehaviour
     {
         musicEnabled = enabled;
 
-        PlayerPrefs.SetInt(MUSIC_KEY, enabled ? 1 : 0);
-        PlayerPrefs.Save();
+        // Global save + saare AudioSources par apply
+        GameAudio.SetMusicEnabled(enabled);
 
         ApplyMusicState();
         UpdateMusicSwitch();
@@ -1612,14 +1729,13 @@ public class SettingsManager : MonoBehaviour
         if (qualitySlider != null)
             qualitySlider.onValueChanged.RemoveListener(SetGraphicsQuality);
 
-        if (soundButtons != null)
+        foreach (Button button in trackedButtons)
         {
-            foreach (Button button in soundButtons)
-            {
-                if (button != null)
-                    button.onClick.RemoveListener(PlayButtonSound);
-            }
+            if (button != null)
+                button.onClick.RemoveListener(PlayButtonSound);
         }
+
+        trackedButtons.Clear();
 
         if (privacyButton != null)
             privacyButton.onClick.RemoveListener(OpenPrivacyPolicy);

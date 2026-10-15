@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 9075322261471200475}
   - component: {fileID: 3155443409598820456}
   - component: {fileID: 8993672826493582295}
+  - component: {fileID: 9218530840996220091}
+  - component: {fileID: 2469557870713775790}
+  - component: {fileID: 5787438827296087238}
   m_Layer: 0
   m_Name: Orange_0
   m_TagString: Untagged
@@ -124,3 +127,77 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.28153846
+--- !u!114 &9218530840996220091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7388587118229623499}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bce53905f44b4674c91e3e6c6645ab19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  halfA: {fileID: 0}
+  halfB: {fileID: 0}
+  fruitJuiceFX: {fileID: 0}
+  alignHalvesToCut: 1
+  splitForce: 2.5
+  spinSpeed: 180
+  halvesLifetime: 4
+  liquidColor: {r: 1, g: 0.55, b: 0, a: 1}
+  juiceSplashFX: {fileID: 0}
+  wallSplatPrefab: {fileID: 0}
+  wallTag: Wall
+  splatScaleRange: {x: 0.8, y: 1.4}
+  splatSortingOrder: -5
+  brokenContainerPrefab: {fileID: 0}
+  sliceSound: {fileID: 0}
+  soundVolume: 1
+--- !u!114 &2469557870713775790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7388587118229623499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcd8fb9e13ecef64192df45928b9ea92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxTiltAngle: 45
+  knifeTag: Knife
+  cutEffectPrefab: {fileID: 141433446842962269, guid: 548e6f6a15dbeae4b8b33f2e89ec1d58, type: 3}
+  cutSound: {fileID: 8300000, guid: d196dfc8a728bce4d8ae4159fa4ba434, type: 3}
+  soundVolume: 1
+  destroyDelay: 1.5
+--- !u!50 &5787438827296087238
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7388587118229623499}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
