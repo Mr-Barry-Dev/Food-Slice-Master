@@ -16,11 +16,11 @@ EditorBuildSettings:
     guid: 3fad71afe857a6149af5c47a913c6f9d
   - enabled: 1
     path: Assets/Scenes/Cafe.unity
-    guid: 101f3ddf4cf22674db6629eb896070e1
+    guid: e502d099acb3fdb4e83846bc6d272452
   - enabled: 1
     path: Assets/Scenes/FastFood.unity
-    guid: 986ca732f36add34480e9fb794ed06b4
-  - enabled: 1
+    guid: b46ab83dc90abf84094117122a3fb6a9
+  - enabled: 0
     path: Assets/Scenes/Party.unity
     guid: c792982d0b67f014f93dba359fc4537d
   - enabled: 1
@@ -38,6 +38,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Bakery2.unity
     guid: 897f6e1ffc60e574fbcec57a26d806ea
+  - enabled: 1
+    path: Assets/Scenes/Vaggie.unity
+    guid: 4e0499e017705824fa303ffbfac8245a
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

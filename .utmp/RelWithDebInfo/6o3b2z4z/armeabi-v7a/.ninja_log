@@ -1,0 +1,23 @@
+# ninja log v5
+32	5240	8139466366011888	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	a76057bb238eb462
+89	5378	8139466367041251	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	b5f0b4b79667ab31
+45	5353	8139466366271725	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	ccc704ae44d2c067
+59	5619	8139466370004723	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	3bd4093ccf99f847
+73	5401	8139466367181176	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	4e115a20a04505d5
+5981	6366	8139466377767895	D:/UnityProJects/Food Slice Master/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6o3b2z4z/obj/armeabi-v7a/libswappywrapper.so	1bc12f5c66e0c5c0
+5378	5980	8139466373709246	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	b981a99893c4b27c
+16	6772	8139466381731667	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	fac093c24629a9dd
+5241	8844	8139466402543572	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	968de879def512ef
+5358	8589	8139466399963033	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	f4d640e02253983e
+8845	8987	8139466404049228	D:/UnityProJects/Food Slice Master/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6o3b2z4z/obj/armeabi-v7a/libgame.so	24a907a80c73ce23
+50	5092	8139615504067480	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	a76057bb238eb462
+33	5232	8139615505989052	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	ccc704ae44d2c067
+82	5268	8139615506519625	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	4e115a20a04505d5
+20	5403	8139615507646273	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	3bd4093ccf99f847
+5269	5971	8139615513463510	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	b981a99893c4b27c
+65	6396	8139615517914171	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	968de879def512ef
+5971	6614	8139615520040233	D:/UnityProJects/Food Slice Master/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6o3b2z4z/obj/armeabi-v7a/libswappywrapper.so	1bc12f5c66e0c5c0
+10	6824	8139615522197456	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	fac093c24629a9dd
+5093	8283	8139615536972350	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	b5f0b4b79667ab31
+5233	8778	8139615541863676	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	f4d640e02253983e
+8778	8984	8139615544030087	D:/UnityProJects/Food Slice Master/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6o3b2z4z/obj/armeabi-v7a/libgame.so	24a907a80c73ce23

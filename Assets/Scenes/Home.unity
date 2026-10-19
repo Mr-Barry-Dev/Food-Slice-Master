@@ -1510,7 +1510,7 @@ GameObject:
   - component: {fileID: 152171441}
   - component: {fileID: 152171440}
   m_Layer: 5
-  m_Name: Party
+  m_Name: Veggie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10655,7 +10655,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -36.359383, y: 87.689896}
+  m_AnchoredPosition: {x: -36.359383, y: 159}
   m_SizeDelta: {x: 1051.2346, y: 413.5924}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &959982140
@@ -10705,8 +10705,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 92.86
-  m_fontSizeBase: 92.86
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -10892,7 +10892,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Party
+  m_text: Veggie
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d86e933e6ca983a45ad912f7d7fa9882, type: 2}
   m_sharedMaterial: {fileID: -5660775149628104760, guid: d86e933e6ca983a45ad912f7d7fa9882, type: 2}
@@ -23937,13 +23937,13 @@ MonoBehaviour:
   sceneNames:
   - Bakery2
   - FastFood2
-  - Party
+  - Vaggie
   - Cafe2
   - FruitGame
   gameIds:
   - Bakery2
   - FastFood2
-  - Party
+  - Vaggie
   - Cafe2
   - FruitGame
   levelTexts:
