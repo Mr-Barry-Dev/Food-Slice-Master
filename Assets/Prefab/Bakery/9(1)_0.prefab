@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 1920302784647669656, guid: 0e3b217025f6eaa4db7431d704d01561, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -155,7 +155,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.5875, y: 0.6066667}
+    oldSize: {x: 0.6409091, y: 0.6618182}
     newSize: {x: 7.05, y: 7.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -328,6 +328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxTiltAngle: 45
+  returnSpeed: 8
   knifeTag: Knife
   cutEffectPrefab: {fileID: 141433446842962269, guid: 548e6f6a15dbeae4b8b33f2e89ec1d58, type: 3}
   cutSound: {fileID: 8300000, guid: d196dfc8a728bce4d8ae4159fa4ba434, type: 3}

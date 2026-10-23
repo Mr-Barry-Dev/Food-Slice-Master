@@ -11,19 +11,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: ee1dbd330c62f8240af9cfb5af2a07b9
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Bakery.unity
     guid: 3fad71afe857a6149af5c47a913c6f9d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Cafe.unity
     guid: e502d099acb3fdb4e83846bc6d272452
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/FastFood.unity
     guid: b46ab83dc90abf84094117122a3fb6a9
   - enabled: 0
     path: Assets/Scenes/Party.unity
     guid: c792982d0b67f014f93dba359fc4537d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Game2.unity
     guid: 2587de109bf76e14d94a9dc2f52d2bc8
   - enabled: 1

@@ -11229,6 +11229,7 @@ MonoBehaviour:
   - {fileID: 1674179832732888586, guid: 231c5a9988292e34b91531dfb98dbe1b, type: 3}
   - {fileID: 2272235957045756475, guid: bfa932fdd18de2d419559d9c07ec1b38, type: 3}
   - {fileID: 3126760645493157878, guid: 56c8816a4d9bb504b8a69b70c522890c, type: 3}
+  - {fileID: 7388587118229623499, guid: 59e90656b15716748a1570a59922e528, type: 3}
   maxSameFruitPerShape: 3
   knifePrefab: {fileID: 3355296102343641371, guid: b951e9f7a8a835f4aa495a24903e9cac, type: 3}
   knifeSpawnPoint: {fileID: 4035309130137528301}

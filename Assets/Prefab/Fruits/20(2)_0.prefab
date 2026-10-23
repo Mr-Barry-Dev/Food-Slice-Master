@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -1313245893556681878, guid: c8813cf6728c2674094259811bd1e825, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -103,6 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxTiltAngle: 45
+  returnSpeed: 8
   knifeTag: Knife
   cutEffectPrefab: {fileID: 141433446842962269, guid: 548e6f6a15dbeae4b8b33f2e89ec1d58, type: 3}
   cutSound: {fileID: 8300000, guid: d196dfc8a728bce4d8ae4159fa4ba434, type: 3}
