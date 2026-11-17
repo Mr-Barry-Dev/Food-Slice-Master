@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f835a7a8a20cb8942ba21053949ff1da, type: 3}
+  m_Name: KnifeLibrary
+  m_EditorClassIdentifier: 
+  pages:
+  - pageName: Page_1
+    knives:
+    - {fileID: 3131702543657391570, guid: 505dd90a76f5e584da9bea5208bbc1d7, type: 3}
+    - {fileID: 2996078994133208815, guid: a878427b24f545548b8d97511d4ca0dc, type: 3}
+    - {fileID: 2178828389052975986, guid: fca2347ebdbc9e445ae7aae81b7f3f65, type: 3}
+    - {fileID: 3045280385149548849, guid: 0d5100f38ee034047a4ba9234ea15185, type: 3}
+    - {fileID: 5641990958549007069, guid: 98b5e891747702a42ad949a8e8014641, type: 3}
+    - {fileID: 2730976354993986691, guid: b0f327724038b274d8bb10c9ca096fd8, type: 3}
+    - {fileID: 3870332105838901089, guid: 609642d7cf532ad4cac20a136090ab20, type: 3}
+    - {fileID: 3485643898282019475, guid: 7778d0e3081159b42a00ed803ce09333, type: 3}
+    - {fileID: 3198346076471263514, guid: 8199a60d8e7e84340a8ea0e09f2d9adf, type: 3}
+  - pageName: Page_2
+    knives:
+    - {fileID: 8247175315592709333, guid: ff86effc15380f7428009ff63faf8fcd, type: 3}
+    - {fileID: 7492953276751467356, guid: c621cfdf0b84efe4dbc9b4716792573d, type: 3}
+    - {fileID: 6037040375502894657, guid: 981cd2adcfd883349acdc74889ac3994, type: 3}
+    - {fileID: 6619011860752062955, guid: f0ca032f986bade449710a38f5bab00c, type: 3}
+    - {fileID: 7601737690066443870, guid: 3304bf43c592b6a4fada7a1e0777c3cb, type: 3}
+    - {fileID: 6560110662388007397, guid: 7996533dc909cef43a6d6ed6259a960a, type: 3}
+    - {fileID: 7501756562857892517, guid: 65526fd64e4b60546bd84a9fe4bc6b62, type: 3}
+    - {fileID: 786785865544078342, guid: ad1a7725ad4a3cb48a0195a3ae89c35f, type: 3}
+    - {fileID: 6172957399750686308, guid: 8d22053f8d792fc4c91cb98c82fb7422, type: 3}
+  - pageName: Page_3
+    knives:
+    - {fileID: 2281248427162775657, guid: 64954b7328ff7b14098c6d2ca4f2d889, type: 3}
+    - {fileID: 7826543431456726103, guid: 68d641461a60f684e97e32381472a53c, type: 3}
+    - {fileID: 7278942178305008202, guid: 685e7667d04454a4c8231820a467bb23, type: 3}
+    - {fileID: 5288532859158988298, guid: 34a736673c7658e469a7fd7486eebae6, type: 3}
+    - {fileID: 7518425362462033013, guid: 365398b464bd6124a87c758e4c46cee4, type: 3}
+    - {fileID: 6514103576795991649, guid: 56f9c3f7130ba674d9be3bfbbdc2b7f2, type: 3}
+    - {fileID: 3895161611387955751, guid: f52bb701fd551ab4fb1a349901beb608, type: 3}
+    - {fileID: 8430252762365454448, guid: adf25866133ac444ea6d37493fed9f3a, type: 3}
+    - {fileID: 4704689069763371832, guid: 5b253960e85338341b2603b3a26d0ea5, type: 3}
+  - pageName: Page_4
+    knives:
+    - {fileID: 2576918387162908073, guid: 316d2c1ac525f5047a3b085e95921a67, type: 3}
+    - {fileID: 238076664650815176, guid: d1dfe315c9bc0344a9b856bd4b805d53, type: 3}
+    - {fileID: 1471324990625320511, guid: 95364f69a7dcd7a459ada96cabbeec5c, type: 3}
+    - {fileID: 2709765267851087486, guid: 591199de16f3dcb4f97f00207ede2280, type: 3}
+    - {fileID: 4140059276140315591, guid: 2d2f16e11c4d5a64bba4b8d07ff57710, type: 3}
+    - {fileID: 5482926174893306481, guid: 30f5fcae66402ce4999b3cd81097ce77, type: 3}
+    - {fileID: 3656868686815566961, guid: 0fadbdc07caec2641bd5db12c94ffc95, type: 3}
+    - {fileID: 2615588310112526361, guid: 85c8f4e8d29157449a2521a6ccdcef92, type: 3}
+    - {fileID: 1417931006116113519, guid: 62b7f4e74ab488c49ac59f8c7d0c9ae5, type: 3}
+  slotsPerPage: 9

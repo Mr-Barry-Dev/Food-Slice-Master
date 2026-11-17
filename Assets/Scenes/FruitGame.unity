@@ -11231,7 +11231,9 @@ MonoBehaviour:
   - {fileID: 3126760645493157878, guid: 56c8816a4d9bb504b8a69b70c522890c, type: 3}
   - {fileID: 7388587118229623499, guid: 59e90656b15716748a1570a59922e528, type: 3}
   maxSameFruitPerShape: 3
+  keepFruitPatternPerLevel: 1
   knifePrefab: {fileID: 3355296102343641371, guid: b951e9f7a8a835f4aa495a24903e9cac, type: 3}
+  knifeLibrary: {fileID: 11400000, guid: 800f27244f8cf25489b9126d99266b6e, type: 2}
   knifeSpawnPoint: {fileID: 4035309130137528301}
   knifeMoveSpeed: 20
   knifeRotationSpeed: 1000
