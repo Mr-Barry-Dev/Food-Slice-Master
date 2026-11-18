@@ -414,8 +414,8 @@ MonoBehaviour:
   maxTiltAngle: 45
   returnSpeed: 10
   knifeTag: Knife
-  leftSliceSprite: {fileID: 3466995139344206834, guid: 321352290bce7ee43aa6d621994be8ff, type: 3}
-  rightSliceSprite: {fileID: 6408379520483043118, guid: 27c5861cc28847544ab3f758b73580fe, type: 3}
+  leftSliceSprite: {fileID: 100239765218067005, guid: b306862367093f6498c6d46e638b65e0, type: 3}
+  rightSliceSprite: {fileID: -2140002403459151908, guid: 352ad150314f52c4cb087f1c637fb76f, type: 3}
   sliceSideForce: 1.5
   sliceUpForce: 1
   sliceSpinSpeed: 120

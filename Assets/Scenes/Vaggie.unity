@@ -11138,6 +11138,8 @@ MonoBehaviour:
   - {fileID: 7348672045304124962, guid: fdb49cdd2bdabf849bd9f6613e7faf10, type: 3}
   - {fileID: 5822373879189943112, guid: 874905f213186534a9048ff838b116cf, type: 3}
   - {fileID: 1331310933146112297, guid: 387411f368316dc4fb86f8a85e4e9e8a, type: 3}
+  - {fileID: 2272235957045756475, guid: bfa932fdd18de2d419559d9c07ec1b38, type: 3}
+  - {fileID: 860082950224745184, guid: 37e02874b328a3949b6b1f44b426867f, type: 3}
   maxSameFruitPerShape: 3
   keepFruitPatternPerLevel: 1
   knifePrefab: {fileID: 3355296102343641371, guid: b951e9f7a8a835f4aa495a24903e9cac, type: 3}

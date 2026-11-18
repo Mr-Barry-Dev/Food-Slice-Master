@@ -11134,7 +11134,6 @@ MonoBehaviour:
   fruitSpawnPoint: {fileID: 1278013053}
   commonFruitPrefabs:
   - {fileID: 8085809357760630833, guid: 8fc1469ec91add0429802f3a1ea44bd0, type: 3}
-  - {fileID: 6166800555288754989, guid: abc12c4253654584f80dabc492437d35, type: 3}
   - {fileID: 7248979368256040176, guid: 4480febca2c425e4190f79fc93329d5a, type: 3}
   - {fileID: 1563263709619187678, guid: 91f1a76946e25f343b363d32f05d2734, type: 3}
   - {fileID: 6835829231968599989, guid: 074696d498fb5424eac5c45780d34f1c, type: 3}

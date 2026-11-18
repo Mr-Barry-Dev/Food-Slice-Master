@@ -105,7 +105,13 @@ MonoBehaviour:
   maxTiltAngle: 45
   returnSpeed: 8
   knifeTag: Knife
-  cutEffectPrefab: {fileID: 141433446842962269, guid: 548e6f6a15dbeae4b8b33f2e89ec1d58, type: 3}
+  leftSliceSprite: {fileID: 9119428828872660188, guid: 979abf3cf59be044cbbdc07b018f2c1b, type: 3}
+  rightSliceSprite: {fileID: 8398806061976452700, guid: 7e467c0b9b2579440b646dd1e5c8ae83, type: 3}
+  sliceSideForce: 1.5
+  sliceUpForce: 1
+  sliceSpinSpeed: 120
+  sliceGravityScale: 2
+  sliceStartOffset: 0
   cutSound: {fileID: 8300000, guid: d196dfc8a728bce4d8ae4159fa4ba434, type: 3}
   soundVolume: 1
   destroyDelay: 1.5
