@@ -14,6 +14,11 @@
 // /// - 100% hone par Spawn Object aata hai, Gift Panel uske andar chala jata hai
 // ///   aur phir New Gift Panel open hota hai.
 // ///
+// /// PER-GAME PROGRESS:
+// /// - Har game (gameId) ka gift progress alag save hota hai.
+// ///   Jaise Game1 (fruit) 50% par ho aur Game2 (bakery) 25% par, to dono apni-apni jagah se aage badhte hain.
+// /// - OtherGameManager Start() me GiftProgress.SetActiveGame(gameId) call karta hai.
+// ///
 // /// Level complete hone par OtherGameManager me GiftProgress.AddLevelProgress() call hota hai.
 // /// </summary>
 // public class GiftProgress : MonoBehaviour
@@ -39,8 +44,37 @@
 //             : LevelsRequired;
 //     }
 
+//     // Base keys - asli PlayerPrefs key me gameId judta hai (CountKey / ShownKey dekho)
 //     private const string COUNT_KEY = "GiftLevelsCompleted";
 //     private const string SHOWN_KEY = "GiftShownLevels";
+
+//     // Abhi kaunsa game active hai (OtherGameManager set karta hai)
+//     private static string activeGameId = "Default";
+
+//     private static string CountKey
+//     {
+//         get { return COUNT_KEY + "_" + activeGameId; }
+//     }
+
+//     private static string ShownKey
+//     {
+//         get { return SHOWN_KEY + "_" + activeGameId; }
+//     }
+
+//     // OtherGameManager Start() me isse call karta hai taaki is game ka apna progress use ho
+//     public static void SetActiveGame(string gameId)
+//     {
+//         string newId = string.IsNullOrEmpty(gameId) ? "Default" : gameId;
+
+//         if (activeGameId == newId)
+//             return;
+
+//         activeGameId = newId;
+
+//         // Agar gift panel pehle se active hai to is game ka progress dikha do
+//         if (activeInstance != null && activeInstance.isActiveAndEnabled)
+//             activeInstance.ShowStartState();
+//     }
 
 
 //     // ============================================================
@@ -161,7 +195,7 @@
 //     // STATIC API (OtherGameManager yahi call karta hai)
 //     // ============================================================
 
-//     // Ek level complete hone par call karo
+//     // Ek level complete hone par call karo (active game ke progress me add hota hai)
 //     public static void AddLevelProgress()
 //     {
 //         int requiredLevels = GetRequiredLevels();
@@ -171,14 +205,14 @@
 //         if (count >= requiredLevels)
 //             return;
 
-//         PlayerPrefs.SetInt(COUNT_KEY, count + 1);
+//         PlayerPrefs.SetInt(CountKey, count + 1);
 //         PlayerPrefs.Save();
 //     }
 
 //     public static int GetCount()
 //     {
 //         return Mathf.Clamp(
-//             PlayerPrefs.GetInt(COUNT_KEY, 0),
+//             PlayerPrefs.GetInt(CountKey, 0),
 //             0,
 //             GetRequiredLevels()
 //         );
@@ -301,6 +335,10 @@
 
 //     private void OnEnable()
 //     {
+//         // Ye instance abhi active hai, activeInstance isi ko rakho
+//         // (do GiftProgress scene me ho to bhi sahi wala use ho)
+//         activeInstance = this;
+
 //         ResetVisuals();
 
 //         if (playRoutine != null)
@@ -335,7 +373,7 @@
 //     private int GetAnimationStartCount(int count)
 //     {
 //         int shown = Mathf.Clamp(
-//             PlayerPrefs.GetInt(SHOWN_KEY, 0),
+//             PlayerPrefs.GetInt(ShownKey, 0),
 //             0,
 //             count
 //         );
@@ -427,7 +465,7 @@
 
 //         SetFill(to);
 
-//         PlayerPrefs.SetInt(SHOWN_KEY, count);
+//         PlayerPrefs.SetInt(ShownKey, count);
 //         PlayerPrefs.Save();
 
 //         // 100% ho gaya: spawn object + pick one (New Gift Panel) wala sequence
@@ -606,9 +644,10 @@
 //         }
 
 
-//         // Gift mil gaya: progress 0 se dobara shuru
-//         PlayerPrefs.SetInt(COUNT_KEY, 0);
-//         PlayerPrefs.SetInt(SHOWN_KEY, 0);
+//         // Gift mil gaya: is game ka progress 0 se dobara shuru
+//         // (dusre games ka progress same rahega)
+//         PlayerPrefs.SetInt(CountKey, 0);
+//         PlayerPrefs.SetInt(ShownKey, 0);
 //         PlayerPrefs.Save();
 
 //         if (onGiftOpened != null)
@@ -819,7 +858,6 @@
 // }
 
 
-
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -842,6 +880,10 @@ using UnityEngine.UI;
 /// - OtherGameManager Start() me GiftProgress.SetActiveGame(gameId) call karta hai.
 ///
 /// Level complete hone par OtherGameManager me GiftProgress.AddLevelProgress() call hota hai.
+///
+/// PROGRESS SOUND:
+/// - Percentage / color fill animation ke dauran Progress Clip bajti hai
+///   aur animation khatam hote hi band ho jati hai.
 /// </summary>
 public class GiftProgress : MonoBehaviour
 {
@@ -993,6 +1035,21 @@ public class GiftProgress : MonoBehaviour
     public float giftOpenVolume = 1f;
 
 
+    [Header("===== PROGRESS SOUND =====")]
+
+    [Tooltip("Percentage badhte waqt (fill animation ke dauran) ye sound bajega.")]
+    public AudioClip progressClip;
+
+    [Range(0f, 1f)]
+    public float progressVolume = 1f;
+
+    [Tooltip("ON: fill animation ke dauran clip loop hoti rahegi. OFF: clip ek baar bajegi. Dono case me fill khatam hote hi sound band ho jayegi.")]
+    public bool loopProgressSound = false;
+
+    [Tooltip("Optional: khali chhodo to script khud ek AudioSource bana legi.")]
+    public AudioSource progressAudioSource;
+
+
     // ============================================================
     // INTERNAL
     // ============================================================
@@ -1059,6 +1116,7 @@ public class GiftProgress : MonoBehaviour
             giftPanel = giftImage.rectTransform;
 
         SetupImages();
+        SetupProgressAudio();
 
         if (spawnObject != null)
         {
@@ -1079,6 +1137,22 @@ public class GiftProgress : MonoBehaviour
             closeNewPanelButton.onClick.RemoveListener(CloseNewGiftPanel);
             closeNewPanelButton.onClick.AddListener(CloseNewGiftPanel);
         }
+    }
+
+
+    // ============================================================
+    // SETUP PROGRESS AUDIO
+    // ============================================================
+
+    private void SetupProgressAudio()
+    {
+        if (progressAudioSource == null)
+        {
+            progressAudioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        progressAudioSource.playOnAwake = false;
+        progressAudioSource.spatialBlend = 0f; // 2D sound
     }
 
 
@@ -1169,6 +1243,8 @@ public class GiftProgress : MonoBehaviour
             playRoutine = null;
         }
 
+        StopProgressSound();
+
         // Panel khulte waqt purana percentage / color dikhe, animation baad me
         ShowStartState();
 
@@ -1222,6 +1298,8 @@ public class GiftProgress : MonoBehaviour
 
     private void OnDisable()
     {
+        StopProgressSound();
+
         playRoutine = null;
         closeRoutine = null;
     }
@@ -1322,6 +1400,9 @@ public class GiftProgress : MonoBehaviour
         float duration = Mathf.Max(0.01f, fillDuration);
         float timer = 0f;
 
+        // Percentage badhna shuru -> progress sound start
+        StartProgressSound();
+
         while (timer < duration)
         {
             timer += Time.unscaledDeltaTime;
@@ -1334,6 +1415,9 @@ public class GiftProgress : MonoBehaviour
         }
 
         SetFill(to);
+
+        // Percentage badhna khatam -> progress sound stop
+        StopProgressSound();
     }
 
 
@@ -1587,6 +1671,35 @@ public class GiftProgress : MonoBehaviour
     // ============================================================
     // HELPERS
     // ============================================================
+
+    // Progress (percentage badhne wali) sound start
+    private void StartProgressSound()
+    {
+        if (progressClip == null)
+            return;
+
+        // Settings me Sound OFF hai to kuch na bajao
+        if (!GameAudio.SoundEnabled)
+            return;
+
+        if (progressAudioSource == null)
+            return;
+
+        progressAudioSource.Stop();
+        progressAudioSource.clip = progressClip;
+        progressAudioSource.volume = progressVolume;
+        progressAudioSource.loop = loopProgressSound;
+        progressAudioSource.Play();
+    }
+
+
+    // Progress sound stop
+    private void StopProgressSound()
+    {
+        if (progressAudioSource != null && progressAudioSource.isPlaying)
+            progressAudioSource.Stop();
+    }
+
 
     private void PlayGiftOpenSound()
     {

@@ -1879,8 +1879,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -98.88694}
-  m_SizeDelta: {x: 0, y: -197.7739}
+  m_AnchoredPosition: {x: 0, y: -100}
+  m_SizeDelta: {x: 160, y: -200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &379402264
 MonoBehaviour:
@@ -2501,6 +2501,7 @@ GameObject:
   m_Component:
   - component: {fileID: 476104597}
   - component: {fileID: 476104596}
+  - component: {fileID: 476104598}
   m_Layer: 0
   m_Name: 'GiftProgress '
   m_TagString: Untagged
@@ -2547,6 +2548,10 @@ MonoBehaviour:
   newPanelStartScale: 0.7
   giftOpenClip: {fileID: 0}
   giftOpenVolume: 1
+  progressClip: {fileID: 8300000, guid: f7a18d45b2106e14d919f3afeaf313e5, type: 3}
+  progressVolume: 1
+  loopProgressSound: 0
+  progressAudioSource: {fileID: 476104598}
 --- !u!4 &476104597
 Transform:
   m_ObjectHideFlags: 0
@@ -2562,6 +2567,103 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &476104598
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476104595}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: f7a18d45b2106e14d919f3afeaf313e5, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &477959525
 GameObject:
   m_ObjectHideFlags: 0
@@ -4301,8 +4403,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -98.88694}
-  m_SizeDelta: {x: 0, y: -197.7739}
+  m_AnchoredPosition: {x: 0, y: -100}
+  m_SizeDelta: {x: 160, y: -200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &716321119
 MonoBehaviour:
@@ -4784,8 +4886,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -98.88694}
-  m_SizeDelta: {x: 0, y: -197.7739}
+  m_AnchoredPosition: {x: 0, y: -100}
+  m_SizeDelta: {x: 160, y: -200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &781195614
 MonoBehaviour:
@@ -5348,8 +5450,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -98.88694}
-  m_SizeDelta: {x: 0, y: -197.7739}
+  m_AnchoredPosition: {x: 0, y: -100}
+  m_SizeDelta: {x: 160, y: -200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &926184139
 MonoBehaviour:
@@ -6553,8 +6655,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -98.88694}
-  m_SizeDelta: {x: 0, y: -197.7739}
+  m_AnchoredPosition: {x: 0, y: -100}
+  m_SizeDelta: {x: 160, y: -200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1229412256
 MonoBehaviour:
@@ -9267,8 +9369,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -98.88694}
-  m_SizeDelta: {x: 0, y: -197.7739}
+  m_AnchoredPosition: {x: 0, y: -100}
+  m_SizeDelta: {x: 160, y: -200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1625453253
 MonoBehaviour:
@@ -9479,8 +9581,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -98.88694}
-  m_SizeDelta: {x: 0, y: -197.7739}
+  m_AnchoredPosition: {x: 0, y: -100}
+  m_SizeDelta: {x: 160, y: -200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1642429088
 MonoBehaviour:
@@ -10229,7 +10331,7 @@ MonoBehaviour:
   coinsRewardText: {fileID: 1459565028}
   gemsRewardText: {fileID: 243228036}
   minCoinsReward: 30
-  maxCoinsReward: 60
+  maxCoinsReward: 50
   minGemsReward: 10
   maxGemsReward: 20
   giftPanel: {fileID: 2050765792}
@@ -10367,8 +10469,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -98.88694}
-  m_SizeDelta: {x: 0, y: -197.7739}
+  m_AnchoredPosition: {x: 0, y: -100}
+  m_SizeDelta: {x: 160, y: -200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1857842024
 MonoBehaviour:
@@ -11226,9 +11328,9 @@ MonoBehaviour:
   - {fileID: 2036207828209049400, guid: 70de69142ad2423408d01edf36e8d836, type: 3}
   - {fileID: 628548477957752238, guid: 9d23d8c69bc80264c8f799f5b3e4cd85, type: 3}
   - {fileID: 3021562052292430893, guid: 6b273c86754cfea418d019f47a581c54, type: 3}
-  - {fileID: 1674179832732888586, guid: 231c5a9988292e34b91531dfb98dbe1b, type: 3}
+  - {fileID: 1128157158285169397, guid: 44986898f363b6a42b5dab56697630a1, type: 3}
   - {fileID: 3126760645493157878, guid: 56c8816a4d9bb504b8a69b70c522890c, type: 3}
-  - {fileID: 7388587118229623499, guid: 59e90656b15716748a1570a59922e528, type: 3}
+  - {fileID: 3972642193924382685, guid: 5c2ff132b580a384581e1d7a577b0b07, type: 3}
   maxSameFruitPerShape: 3
   keepFruitPatternPerLevel: 1
   knifePrefab: {fileID: 3355296102343641371, guid: b951e9f7a8a835f4aa495a24903e9cac, type: 3}
@@ -11240,7 +11342,7 @@ MonoBehaviour:
   knifeStartOffset: 1.5
   knifeReadyMoveSpeed: 8
   oneKnifeAtATime: 1
-  knifeFireClip: {fileID: 8300000, guid: b75a5edf3657d5248adef0068a10f4e9, type: 3}
+  knifeFireClip: {fileID: 8300000, guid: 3a506678c5741254595a2a12c9ed935a, type: 3}
   knifeFireVolume: 0.15
   audioSource: {fileID: 2003357467}
   circleSettings:
@@ -11285,7 +11387,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: ef292c30912ac094d96d07a8909f1ac0, type: 3}
+  m_Resource: {fileID: 8300000, guid: 3a506678c5741254595a2a12c9ed935a, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -11867,8 +11969,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -98.88694}
-  m_SizeDelta: {x: 0, y: -197.7739}
+  m_AnchoredPosition: {x: 0, y: -100}
+  m_SizeDelta: {x: 160, y: -200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2058347882
 MonoBehaviour:
@@ -12449,7 +12551,17 @@ MonoBehaviour:
   coinMax: 120
   gemMin: 10
   gemMax: 20
-  gemChance: 0
+  gemChance: 20
+  knifeLibrary: {fileID: 11400000, guid: 800f27244f8cf25489b9126d99266b6e, type: 2}
+  knifeChance: 8
+  allowedKnifePages: 05000000
+  firstKnifeFree: 1
+  fallbackKnifeSprite: {fileID: 8647823593821616703, guid: 6aa44102a3b898b4f896f8dc431e1a91, type: 3}
+  knifeRewardLabel: NEW KNIFE
+  equipOnUnlock: 1
+  onKnifeUnlocked:
+    m_PersistentCalls:
+      m_Calls: []
   audioSource: {fileID: 2143287608}
   pickSound: {fileID: 8300000, guid: 268dfd57808e2ef4a93a212ec80dd379, type: 3}
   collectSound: {fileID: 8300000, guid: cc2979ca992025a4c83db1d8a2ca5a15, type: 3}

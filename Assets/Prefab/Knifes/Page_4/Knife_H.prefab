@@ -134,7 +134,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.24156141, y: 0.654582}
+  m_Size: {x: 0.1, y: 0.63}
   m_EdgeRadius: 0
 --- !u!50 &1762135568952437200
 Rigidbody2D:

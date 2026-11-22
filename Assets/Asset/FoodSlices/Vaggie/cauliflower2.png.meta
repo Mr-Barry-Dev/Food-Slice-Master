@@ -1,0 +1,676 @@
+fileFormatVersion: 2
+guid: fe36884a08779d04485ba4b06010c64a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 183623278940129615
+    second: cauliflower2_0
+  - first:
+      213: 1675375093382753771
+    second: cauliflower2_1
+  - first:
+      213: -7238053023125493621
+    second: cauliflower2_2
+  - first:
+      213: 56346372308327730
+    second: cauliflower2_3
+  - first:
+      213: 7503982375670179288
+    second: cauliflower2_4
+  - first:
+      213: -4570907730411851855
+    second: cauliflower2_5
+  - first:
+      213: 6540098269747519179
+    second: cauliflower2_6
+  - first:
+      213: -5626211480255277969
+    second: cauliflower2_7
+  - first:
+      213: 2318955323696375801
+    second: cauliflower2_8
+  - first:
+      213: -1090960086790891538
+    second: cauliflower2_9
+  - first:
+      213: -276917640033024434
+    second: cauliflower2_10
+  - first:
+      213: 3645320675833686434
+    second: cauliflower2_11
+  - first:
+      213: 8522939316981584985
+    second: cauliflower2_12
+  - first:
+      213: 5877888316921166828
+    second: cauliflower2_13
+  - first:
+      213: 7348924556794179317
+    second: cauliflower2_14
+  - first:
+      213: 2678887248014452833
+    second: cauliflower2_15
+  - first:
+      213: 7348973752121566544
+    second: cauliflower2_16
+  - first:
+      213: -4916091743216900139
+    second: cauliflower2_17
+  - first:
+      213: -7414661715392786795
+    second: cauliflower2_18
+  - first:
+      213: -658445763567279470
+    second: cauliflower2_19
+  - first:
+      213: 1188857900694070565
+    second: cauliflower2_20
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: cauliflower2_0
+      rect:
+        serializedVersion: 2
+        x: 1319
+        y: 1301
+        width: 100
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4908b9366c5c8200800000000000000
+      internalID: 183623278940129615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cauliflower2_1
+      rect:
+        serializedVersion: 2
+        x: 1527
+        y: 1377
+        width: 30
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bedad9a55c0204710800000000000000
+      internalID: 1675375093382753771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cauliflower2_2
+      rect:
+        serializedVersion: 2
+        x: 1557
+        y: 1376
+        width: 42
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b88a923df154d8b90800000000000000
+      internalID: -7238053023125493621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cauliflower2_3
+      rect:
+        serializedVersion: 2
+        x: 1493
+        y: 1360
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23dd1d12abe28c000800000000000000
+      internalID: 56346372308327730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cauliflower2_4
+      rect:
+        serializedVersion: 2
+        x: 1425
+        y: 1325
+        width: 31
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d5ec9e7630832860800000000000000
+      internalID: 7503982375670179288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cauliflower2_5
+      rect:
+        serializedVersion: 2
+        x: 1457
+        y: 1349
+        width: 20
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bfe6bb03afd090c0800000000000000
+      internalID: -4570907730411851855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cauliflower2_6
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 1245
+        width: 39
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bce9274b9b813ca50800000000000000
+      internalID: 6540098269747519179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cauliflower2_7
+      rect:
+        serializedVersion: 2
+        x: 634
+        y: 328
+        width: 634
+        height: 954
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f64d828b77eabe1b0800000000000000
+      internalID: -5626211480255277969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cauliflower2_8
+      rect:
+        serializedVersion: 2
+        x: 1385
+        y: 1263
+        width: 18
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f76cee94959e2020800000000000000
+      internalID: 2318955323696375801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cauliflower2_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1225
+        width: 24
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee713bac4912cd0f0800000000000000
+      internalID: -1090960086790891538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cauliflower2_10
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 1237
+        width: 82
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e46cac1afd0382cf0800000000000000
+      internalID: -276917640033024434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cauliflower2_11
+      rect:
+        serializedVersion: 2
+        x: 1366
+        y: 1213
+        width: 15
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a9247747d7c69230800000000000000
+      internalID: 3645320675833686434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cauliflower2_12
+      rect:
+        serializedVersion: 2
+        x: 1355
+        y: 1078
+        width: 25
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 954d5eef620974670800000000000000
+      internalID: 8522939316981584985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cauliflower2_13
+      rect:
+        serializedVersion: 2
+        x: 1357
+        y: 1162
+        width: 8
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ceb31872844729150800000000000000
+      internalID: 5877888316921166828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cauliflower2_14
+      rect:
+        serializedVersion: 2
+        x: 1365
+        y: 933
+        width: 31
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5feacd8b2ff9cf560800000000000000
+      internalID: 7348924556794179317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cauliflower2_15
+      rect:
+        serializedVersion: 2
+        x: 1371
+        y: 670
+        width: 43
+        height: 160
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 168a93b32c15d2520800000000000000
+      internalID: 2678887248014452833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cauliflower2_16
+      rect:
+        serializedVersion: 2
+        x: 1411
+        y: 474
+        width: 94
+        height: 167
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05520e6e0bcccf560800000000000000
+      internalID: 7348973752121566544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cauliflower2_17
+      rect:
+        serializedVersion: 2
+        x: 1504
+        y: 448
+        width: 57
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d7635a2b9886cbb0800000000000000
+      internalID: -4916091743216900139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cauliflower2_18
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 438
+        width: 40
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59e03545474d91990800000000000000
+      internalID: -7414661715392786795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cauliflower2_19
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 323
+        width: 94
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29226be011bbcd6f0800000000000000
+      internalID: -658445763567279470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cauliflower2_20
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 338
+        width: 57
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 525694b36fbaf7010800000000000000
+      internalID: 1188857900694070565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      cauliflower2_0: 183623278940129615
+      cauliflower2_1: 1675375093382753771
+      cauliflower2_10: -276917640033024434
+      cauliflower2_11: 3645320675833686434
+      cauliflower2_12: 8522939316981584985
+      cauliflower2_13: 5877888316921166828
+      cauliflower2_14: 7348924556794179317
+      cauliflower2_15: 2678887248014452833
+      cauliflower2_16: 7348973752121566544
+      cauliflower2_17: -4916091743216900139
+      cauliflower2_18: -7414661715392786795
+      cauliflower2_19: -658445763567279470
+      cauliflower2_2: -7238053023125493621
+      cauliflower2_20: 1188857900694070565
+      cauliflower2_3: 56346372308327730
+      cauliflower2_4: 7503982375670179288
+      cauliflower2_5: -4570907730411851855
+      cauliflower2_6: 6540098269747519179
+      cauliflower2_7: -5626211480255277969
+      cauliflower2_8: 2318955323696375801
+      cauliflower2_9: -1090960086790891538
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
