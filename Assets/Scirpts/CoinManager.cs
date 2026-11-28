@@ -1,3 +1,867 @@
+// using System.Collections;
+// using System.Collections.Generic;
+// using System.Globalization;
+// using UnityEngine;
+// using TMPro;
+
+// public class CoinManager : MonoBehaviour
+// {
+//     // ============================================================
+//     // SAVE KEYS - EXISTING DATA PRESERVED
+//     // ============================================================
+
+//     private const string COINS_KEY = "TotalCoins";
+//     private const string GEMS_KEY = "TotalGems";
+
+
+//     // ============================================================
+//     // COIN TEXTS
+//     // ============================================================
+
+//     [Header("===== COIN TEXTS =====")]
+
+//     [Tooltip("Game Over, Win, Gift etc. ke sabhi coin TMP texts assign karo.")]
+//     public TMP_Text[] coinTexts;
+
+
+//     // ============================================================
+//     // GEM TEXTS
+//     // ============================================================
+
+//     [Header("===== GEM TEXTS =====")]
+
+//     [Tooltip("Game Over, Win, Gift etc. ke sabhi gem TMP texts assign karo.")]
+//     public TMP_Text[] gemTexts;
+
+
+//     // ============================================================
+//     // COIN AND GEM ICONS
+//     // ============================================================
+
+//     [Header("===== COIN ICONS =====")]
+
+//     [Tooltip("Coin icons ke RectTransform ya Transform yahan assign karo.")]
+//     public Transform[] coinIcons;
+
+
+//     [Header("===== GEM ICONS =====")]
+
+//     [Tooltip("Gem icons ke RectTransform ya Transform yahan assign karo.")]
+//     public Transform[] gemIcons;
+
+
+//     // ============================================================
+//     // TEXT FORMAT
+//     // ============================================================
+
+//     [Header("===== TEXT FORMAT =====")]
+
+//     public string coinPrefix = "";
+//     public string coinSuffix = "";
+
+//     public string gemPrefix = "";
+//     public string gemSuffix = "";
+
+
+//     // ============================================================
+//     // SHORT NUMBER FORMAT
+//     // ============================================================
+
+//     [Header("===== SHORT NUMBER FORMAT =====")]
+
+//     [Tooltip("1500 = 1.5K, 2500000 = 2.5M")]
+//     public bool useShortFormat = true;
+
+//     [Range(0, 3)]
+//     public int decimalPlaces = 2;
+
+
+//     // ============================================================
+//     // ANIMATION SETTINGS
+//     // ============================================================
+
+//     [Header("===== CURRENCY ANIMATION =====")]
+
+//     [Tooltip("Number counting animation duration.")]
+//     [Min(0.01f)]
+//     public float animationDuration = 0.5f;
+
+//     [Tooltip("Animation complete hone par text kitna bada hoga.")]
+//     [Min(1f)]
+//     public float textPopMultiplier = 1.18f;
+
+//     [Tooltip("Text pop effect ki duration.")]
+//     [Min(0.01f)]
+//     public float textPopDuration = 0.12f;
+
+//     [Tooltip("Coin aur gem icon bounce kitna bada hoga.")]
+//     [Min(1f)]
+//     public float iconBounceMultiplier = 1.22f;
+
+//     [Tooltip("Coin aur gem icon bounce ki duration.")]
+//     [Min(0.01f)]
+//     public float iconBounceDuration = 0.25f;
+
+
+//     // ============================================================
+//     // INSTANCE AND MULTIPLE SCENE SUPPORT
+//     // ============================================================
+
+//     public static CoinManager Instance { get; private set; }
+
+//     private static readonly List<CoinManager> activeManagers =
+//         new List<CoinManager>();
+
+
+//     // ============================================================
+//     // ANIMATION TRACKING
+//     // ============================================================
+
+//     private readonly Dictionary<TMP_Text, long> displayedValues =
+//         new Dictionary<TMP_Text, long>();
+
+//     private readonly Dictionary<TMP_Text, Coroutine> textCoroutines =
+//         new Dictionary<TMP_Text, Coroutine>();
+
+//     private readonly Dictionary<TMP_Text, Vector3> originalTextScales =
+//         new Dictionary<TMP_Text, Vector3>();
+
+//     private readonly Dictionary<Transform, Coroutine> iconCoroutines =
+//         new Dictionary<Transform, Coroutine>();
+
+//     private readonly Dictionary<Transform, Vector3> originalIconScales =
+//         new Dictionary<Transform, Vector3>();
+
+
+//     // ============================================================
+//     // UNITY LIFECYCLE
+//     // ============================================================
+
+//     private void Awake()
+//     {
+//         RegisterManager();
+//     }
+
+//     private void OnEnable()
+//     {
+//         RegisterManager();
+//         RefreshAllTexts();
+//     }
+
+//     private void Start()
+//     {
+//         RefreshAllTexts();
+//     }
+
+//     private void OnDisable()
+//     {
+//         UnregisterManager();
+//         StopAllAnimations();
+//     }
+
+//     private void OnDestroy()
+//     {
+//         UnregisterManager();
+//         StopAllAnimations();
+//     }
+
+
+//     private void RegisterManager()
+//     {
+//         if (!activeManagers.Contains(this))
+//             activeManagers.Add(this);
+
+//         Instance = this;
+//     }
+
+//     private void UnregisterManager()
+//     {
+//         activeManagers.Remove(this);
+
+//         if (Instance == this)
+//         {
+//             Instance = activeManagers.Count > 0
+//                 ? activeManagers[activeManagers.Count - 1]
+//                 : null;
+//         }
+//     }
+
+
+//     // ============================================================
+//     // GET CURRENCY
+//     // ============================================================
+
+//     public static int GetCoins()
+//     {
+//         return PlayerPrefs.GetInt(COINS_KEY, 0);
+//     }
+
+//     public static int GetGems()
+//     {
+//         return PlayerPrefs.GetInt(GEMS_KEY, 0);
+//     }
+
+
+//     // ============================================================
+//     // ADD COINS
+//     // ============================================================
+
+//     public static void AddCoins(int amount)
+//     {
+//         if (amount <= 0)
+//             return;
+
+//         long total = (long)GetCoins() + amount;
+
+//         int safeTotal = (int)System.Math.Min(total, int.MaxValue);
+
+//         PlayerPrefs.SetInt(COINS_KEY, safeTotal);
+//         PlayerPrefs.Save();
+
+//         RefreshAllManagers(true, false);
+//     }
+
+
+//     // ============================================================
+//     // ADD GEMS
+//     // ============================================================
+
+//     public static void AddGems(int amount)
+//     {
+//         if (amount <= 0)
+//             return;
+
+//         long total = (long)GetGems() + amount;
+
+//         int safeTotal = (int)System.Math.Min(total, int.MaxValue);
+
+//         PlayerPrefs.SetInt(GEMS_KEY, safeTotal);
+//         PlayerPrefs.Save();
+
+//         RefreshAllManagers(false, true);
+//     }
+
+
+//     // ============================================================
+//     // SPEND COINS
+//     // ============================================================
+
+//     public static bool SpendCoins(int amount)
+//     {
+//         if (amount <= 0 || GetCoins() < amount)
+//             return false;
+
+//         PlayerPrefs.SetInt(COINS_KEY, GetCoins() - amount);
+//         PlayerPrefs.Save();
+
+//         RefreshAllManagers(true, false);
+
+//         return true;
+//     }
+
+
+//     // ============================================================
+//     // SPEND GEMS
+//     // ============================================================
+
+//     public static bool SpendGems(int amount)
+//     {
+//         if (amount <= 0 || GetGems() < amount)
+//             return false;
+
+//         PlayerPrefs.SetInt(GEMS_KEY, GetGems() - amount);
+//         PlayerPrefs.Save();
+
+//         RefreshAllManagers(false, true);
+
+//         return true;
+//     }
+
+
+//     // ============================================================
+//     // REFRESH ALL ACTIVE SCENE MANAGERS
+//     // ============================================================
+
+//     private static void RefreshAllManagers(
+//         bool animateCoins,
+//         bool animateGems)
+//     {
+//         // Loop ke dauran manager disable ho sakta hai,
+//         // isliye active managers ki copy use karte hain.
+//         CoinManager[] managers = activeManagers.ToArray();
+
+//         foreach (CoinManager manager in managers)
+//         {
+//             if (manager != null && manager.isActiveAndEnabled)
+//             {
+//                 manager.RefreshCurrencyDisplay(
+//                     animateCoins,
+//                     animateGems
+//                 );
+//             }
+//         }
+//     }
+
+
+//     // ============================================================
+//     // PUBLIC REFRESH - IMMEDIATE UPDATE
+//     // ============================================================
+
+//     public void RefreshAllTexts()
+//     {
+//         RefreshCurrencyDisplay(false, false);
+//     }
+
+
+//     // ============================================================
+//     // UPDATE CURRENCY DISPLAY
+//     // ============================================================
+
+//     private void RefreshCurrencyDisplay(
+//         bool animateCoins,
+//         bool animateGems)
+//     {
+//         RefreshTextArray(
+//             coinTexts,
+//             GetCoins(),
+//             coinPrefix,
+//             coinSuffix,
+//             animateCoins
+//         );
+
+//         RefreshTextArray(
+//             gemTexts,
+//             GetGems(),
+//             gemPrefix,
+//             gemSuffix,
+//             animateGems
+//         );
+
+//         if (animateCoins)
+//             BounceIcons(coinIcons);
+
+//         if (animateGems)
+//             BounceIcons(gemIcons);
+//     }
+
+
+//     private void RefreshTextArray(
+//         TMP_Text[] texts,
+//         int targetValue,
+//         string prefix,
+//         string suffix,
+//         bool animate)
+//     {
+//         if (texts == null)
+//             return;
+
+//         foreach (TMP_Text text in texts)
+//         {
+//             if (text == null)
+//                 continue;
+
+//             SaveOriginalTextScale(text);
+
+//             if (!animate || !displayedValues.ContainsKey(text))
+//             {
+//                 SetTextImmediately(
+//                     text,
+//                     targetValue,
+//                     prefix,
+//                     suffix
+//                 );
+//             }
+//             else
+//             {
+//                 StartTextCountAnimation(
+//                     text,
+//                     displayedValues[text],
+//                     targetValue,
+//                     prefix,
+//                     suffix
+//                 );
+//             }
+//         }
+//     }
+
+
+//     // ============================================================
+//     // TEXT COUNTING ANIMATION
+//     // ============================================================
+
+//     private void StartTextCountAnimation(
+//         TMP_Text text,
+//         long startValue,
+//         long targetValue,
+//         string prefix,
+//         string suffix)
+//     {
+//         if (textCoroutines.TryGetValue(text, out Coroutine running))
+//         {
+//             if (running != null)
+//                 StopCoroutine(running);
+
+//             textCoroutines.Remove(text);
+//         }
+
+//         // Agar animation ke beech naya reward aaye,
+//         // toh current text scale normal kar do.
+//         RestoreTextScale(text);
+
+//         if (animationDuration <= 0f || startValue == targetValue)
+//         {
+//             SetTextImmediately(
+//                 text,
+//                 targetValue,
+//                 prefix,
+//                 suffix
+//             );
+
+//             PopText(text);
+//             return;
+//         }
+
+//         Coroutine coroutine = StartCoroutine(
+//             CountTextRoutine(
+//                 text,
+//                 startValue,
+//                 targetValue,
+//                 prefix,
+//                 suffix
+//             )
+//         );
+
+//         textCoroutines[text] = coroutine;
+//     }
+
+
+//     private IEnumerator CountTextRoutine(
+//         TMP_Text text,
+//         long startValue,
+//         long targetValue,
+//         string prefix,
+//         string suffix)
+//     {
+//         float elapsed = 0f;
+//         float duration = Mathf.Max(0.01f, animationDuration);
+
+//         while (elapsed < duration)
+//         {
+//             if (text == null)
+//                 yield break;
+
+//             elapsed += Time.unscaledDeltaTime;
+
+//             float progress = Mathf.Clamp01(elapsed / duration);
+
+//             // Smooth counting.
+//             float easedProgress = progress * progress *
+//                 (3f - 2f * progress);
+
+//             double currentValue =
+//                 startValue +
+//                 ((double)targetValue - startValue) * easedProgress;
+
+//             long displayedValue = (long)System.Math.Round(currentValue);
+
+//             displayedValues[text] = displayedValue;
+
+//             text.text = prefix +
+//                 FormatForDisplay(displayedValue) +
+//                 suffix;
+
+//             yield return null;
+//         }
+
+//         if (text != null)
+//         {
+//             displayedValues[text] = targetValue;
+
+//             text.text = prefix +
+//                 FormatForDisplay(targetValue) +
+//                 suffix;
+
+//             // Counting ke baad halka sa text pop.
+//             yield return PopTextRoutine(text);
+//         }
+
+//         if (text != null)
+//             textCoroutines.Remove(text);
+//     }
+
+
+//     // ============================================================
+//     // TEXT POP ANIMATION
+//     // ============================================================
+
+//     private void PopText(TMP_Text text)
+//     {
+//         if (text == null)
+//             return;
+
+//         StartCoroutine(PopTextRoutine(text));
+//     }
+
+
+//     private IEnumerator PopTextRoutine(TMP_Text text)
+//     {
+//         if (text == null)
+//             yield break;
+
+//         SaveOriginalTextScale(text);
+
+//         Transform target = text.transform;
+//         Vector3 originalScale = originalTextScales[text];
+
+//         float duration = Mathf.Max(0.01f, textPopDuration);
+//         float multiplier = Mathf.Max(1f, textPopMultiplier);
+
+//         float halfDuration = duration * 0.5f;
+//         float elapsed = 0f;
+
+//         while (elapsed < halfDuration)
+//         {
+//             if (text == null)
+//                 yield break;
+
+//             elapsed += Time.unscaledDeltaTime;
+
+//             float t = Mathf.Clamp01(elapsed / halfDuration);
+//             t = Mathf.SmoothStep(0f, 1f, t);
+
+//             target.localScale = Vector3.Lerp(
+//                 originalScale,
+//                 originalScale * multiplier,
+//                 t
+//             );
+
+//             yield return null;
+//         }
+
+//         elapsed = 0f;
+
+//         while (elapsed < halfDuration)
+//         {
+//             if (text == null)
+//                 yield break;
+
+//             elapsed += Time.unscaledDeltaTime;
+
+//             float t = Mathf.Clamp01(elapsed / halfDuration);
+//             t = Mathf.SmoothStep(0f, 1f, t);
+
+//             target.localScale = Vector3.Lerp(
+//                 originalScale * multiplier,
+//                 originalScale,
+//                 t
+//             );
+
+//             yield return null;
+//         }
+
+//         if (text != null)
+//             target.localScale = originalScale;
+//     }
+
+
+//     // ============================================================
+//     // ICON BOUNCE ANIMATION
+//     // ============================================================
+
+//     private void BounceIcons(Transform[] icons)
+//     {
+//         if (icons == null)
+//             return;
+
+//         foreach (Transform icon in icons)
+//         {
+//             if (icon == null)
+//                 continue;
+
+//             SaveOriginalIconScale(icon);
+
+//             if (iconCoroutines.TryGetValue(
+//                 icon,
+//                 out Coroutine running))
+//             {
+//                 if (running != null)
+//                     StopCoroutine(running);
+
+//                 iconCoroutines.Remove(icon);
+//             }
+
+//             Coroutine coroutine = StartCoroutine(
+//                 IconBounceRoutine(icon)
+//             );
+
+//             iconCoroutines[icon] = coroutine;
+//         }
+//     }
+
+
+//     private IEnumerator IconBounceRoutine(Transform icon)
+//     {
+//         if (icon == null)
+//             yield break;
+
+//         Vector3 originalScale = originalIconScales[icon];
+
+//         float duration = Mathf.Max(0.01f, iconBounceDuration);
+//         float halfDuration = duration * 0.5f;
+//         float multiplier = Mathf.Max(1f, iconBounceMultiplier);
+
+//         float elapsed = 0f;
+
+//         while (elapsed < halfDuration)
+//         {
+//             if (icon == null)
+//                 yield break;
+
+//             elapsed += Time.unscaledDeltaTime;
+
+//             float t = Mathf.Clamp01(elapsed / halfDuration);
+//             t = Mathf.SmoothStep(0f, 1f, t);
+
+//             icon.localScale = Vector3.Lerp(
+//                 originalScale,
+//                 originalScale * multiplier,
+//                 t
+//             );
+
+//             yield return null;
+//         }
+
+//         elapsed = 0f;
+
+//         while (elapsed < halfDuration)
+//         {
+//             if (icon == null)
+//                 yield break;
+
+//             elapsed += Time.unscaledDeltaTime;
+
+//             float t = Mathf.Clamp01(elapsed / halfDuration);
+//             t = Mathf.SmoothStep(0f, 1f, t);
+
+//             icon.localScale = Vector3.Lerp(
+//                 originalScale * multiplier,
+//                 originalScale,
+//                 t
+//             );
+
+//             yield return null;
+//         }
+
+//         if (icon != null)
+//         {
+//             icon.localScale = originalScale;
+//             iconCoroutines.Remove(icon);
+//         }
+//     }
+
+
+//     // ============================================================
+//     // SCALE HELPERS
+//     // ============================================================
+
+//     private void SaveOriginalTextScale(TMP_Text text)
+//     {
+//         if (text == null)
+//             return;
+
+//         if (!originalTextScales.ContainsKey(text))
+//             originalTextScales[text] = text.transform.localScale;
+//     }
+
+
+//     private void RestoreTextScale(TMP_Text text)
+//     {
+//         if (text == null)
+//             return;
+
+//         if (originalTextScales.TryGetValue(
+//             text,
+//             out Vector3 originalScale))
+//         {
+//             text.transform.localScale = originalScale;
+//         }
+//     }
+
+
+//     private void SaveOriginalIconScale(Transform icon)
+//     {
+//         if (icon == null)
+//             return;
+
+//         if (!originalIconScales.ContainsKey(icon))
+//             originalIconScales[icon] = icon.localScale;
+//     }
+
+
+//     // ============================================================
+//     // IMMEDIATE TEXT UPDATE
+//     // ============================================================
+
+//     private void SetTextImmediately(
+//         TMP_Text text,
+//         long value,
+//         string prefix,
+//         string suffix)
+//     {
+//         if (text == null)
+//             return;
+
+//         if (textCoroutines.TryGetValue(
+//             text,
+//             out Coroutine running))
+//         {
+//             if (running != null)
+//                 StopCoroutine(running);
+
+//             textCoroutines.Remove(text);
+//         }
+
+//         RestoreTextScale(text);
+
+//         displayedValues[text] = value;
+
+//         text.text = prefix +
+//             FormatForDisplay(value) +
+//             suffix;
+//     }
+
+
+//     // ============================================================
+//     // STOP ANIMATIONS
+//     // ============================================================
+
+//     private void StopAllAnimations()
+//     {
+//         foreach (KeyValuePair<TMP_Text, Coroutine> pair in textCoroutines)
+//         {
+//             if (pair.Value != null)
+//                 StopCoroutine(pair.Value);
+//         }
+
+//         foreach (KeyValuePair<Transform, Coroutine> pair in iconCoroutines)
+//         {
+//             if (pair.Value != null)
+//                 StopCoroutine(pair.Value);
+//         }
+
+//         foreach (KeyValuePair<TMP_Text, Vector3> pair in originalTextScales)
+//         {
+//             if (pair.Key != null)
+//                 pair.Key.transform.localScale = pair.Value;
+//         }
+
+//         foreach (KeyValuePair<Transform, Vector3> pair in originalIconScales)
+//         {
+//             if (pair.Key != null)
+//                 pair.Key.localScale = pair.Value;
+//         }
+
+//         textCoroutines.Clear();
+//         iconCoroutines.Clear();
+//     }
+
+
+//     // ============================================================
+//     // NUMBER FORMATTING - K, M, B
+//     // ============================================================
+
+//     private string FormatForDisplay(long value)
+//     {
+//         if (!useShortFormat)
+//             return value.ToString(CultureInfo.InvariantCulture);
+
+//         return FormatNumber(value, decimalPlaces);
+//     }
+
+
+//     public static string FormatNumber(long value, int decimals = 2)
+//     {
+//         if (value < 0)
+//             return "-" + FormatNumber(-value, decimals);
+
+//         if (value < 1000)
+//             return value.ToString(CultureInfo.InvariantCulture);
+
+//         double divisor;
+//         string suffix;
+
+//         if (value >= 1000000000L)
+//         {
+//             divisor = 1000000000d;
+//             suffix = "B";
+//         }
+//         else if (value >= 1000000L)
+//         {
+//             divisor = 1000000d;
+//             suffix = "M";
+//         }
+//         else
+//         {
+//             divisor = 1000d;
+//             suffix = "K";
+//         }
+
+//         decimals = Mathf.Clamp(decimals, 0, 3);
+
+//         double scaled = value / divisor;
+
+//         double factor = System.Math.Pow(10, decimals);
+
+//         // Existing truncation behaviour preserved.
+//         scaled = System.Math.Floor(scaled * factor) / factor;
+
+//         string format = decimals == 0
+//             ? "0"
+//             : "0." + new string('#', decimals);
+
+//         return scaled.ToString(
+//             format,
+//             CultureInfo.InvariantCulture
+//         ) + suffix;
+//     }
+
+
+//     // ============================================================
+//     // TESTING
+//     // ============================================================
+
+//     [ContextMenu("Add 100 Coins (Test)")]
+//     private void TestAddCoins()
+//     {
+//         AddCoins(100);
+//     }
+
+
+//     [ContextMenu("Add 50 Gems (Test)")]
+//     private void TestAddGems()
+//     {
+//         AddGems(50);
+//     }
+
+
+//     [ContextMenu("Reset Coins And Gems")]
+//     private void ResetAll()
+//     {
+//         PlayerPrefs.DeleteKey(COINS_KEY);
+//         PlayerPrefs.DeleteKey(GEMS_KEY);
+//         PlayerPrefs.Save();
+
+//         // Reset ke baad animation nahi, direct refresh.
+//         CoinManager[] managers = activeManagers.ToArray();
+
+//         foreach (CoinManager manager in managers)
+//         {
+//             if (manager != null)
+//                 manager.RefreshAllTexts();
+//         }
+//     }
+// }
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -23,6 +887,9 @@ public class CoinManager : MonoBehaviour
     [Tooltip("Game Over, Win, Gift etc. ke sabhi coin TMP texts assign karo.")]
     public TMP_Text[] coinTexts;
 
+    [Tooltip("Har coin text ka background (same index order). Element 0 = coinTexts[0] ka background, Element 1 = coinTexts[1] ka background, aise hi aage.")]
+    public RectTransform[] coinBackgrounds;
+
 
     // ============================================================
     // GEM TEXTS
@@ -32,6 +899,9 @@ public class CoinManager : MonoBehaviour
 
     [Tooltip("Game Over, Win, Gift etc. ke sabhi gem TMP texts assign karo.")]
     public TMP_Text[] gemTexts;
+
+    [Tooltip("Har gem text ka background (same index order). Element 0 = gemTexts[0] ka background, aise hi aage.")]
+    public RectTransform[] gemBackgrounds;
 
 
     // ============================================================
@@ -48,6 +918,43 @@ public class CoinManager : MonoBehaviour
 
     [Tooltip("Gem icons ke RectTransform ya Transform yahan assign karo.")]
     public Transform[] gemIcons;
+
+
+    // ============================================================
+    // BACKGROUND AUTO WIDTH
+    // ============================================================
+
+    [Header("===== BACKGROUND AUTO WIDTH =====")]
+
+    [Tooltip("ON rahega toh number ke hisaab se background ka width badhega.")]
+    public bool autoResizeBackground = true;
+
+    [Tooltip("Text ke left aur right dono side itna extra gap (padding) milega.")]
+    [Min(0f)]
+    public float backgroundPadding = 20f;
+
+    [Tooltip("Text ke alawa jo cheezein background ke andar jagah leti hain (jaise CoinImg ki width + image aur text ke beech ka gap). Ye width text ki width me jud jayegi.")]
+    [Min(0f)]
+    public float backgroundExtraWidth = 50f;
+
+    [Tooltip("Background ka minimum width. Isse chhota kabhi nahi hoga.")]
+    [Min(0f)]
+    public float minBackgroundWidth = 80f;
+
+    [Tooltip("Background ka maximum width. 0 = koi limit nahi.")]
+    [Min(0f)]
+    public float maxBackgroundWidth = 0f;
+
+    public enum BackgroundAlignment
+    {
+        Auto,    // Text ke alignment ke hisaab se apne aap (Left/Center/Right)
+        Left,    // Background left me rahega, sirf right side badhega
+        Center,  // Background center me rahega, dono side barabar badhega
+        Right    // Background right me rahega, sirf left side badhega
+    }
+
+    [Tooltip("Auto = TMP text ka alignment (Left/Center/Right) dekh kar background us side me rahega. Chaho toh manually Left/Center/Right bhi select kar sakte ho.")]
+    public BackgroundAlignment backgroundAlignment = BackgroundAlignment.Auto;
 
 
     // ============================================================
@@ -131,6 +1038,10 @@ public class CoinManager : MonoBehaviour
 
     private readonly Dictionary<Transform, Vector3> originalIconScales =
         new Dictionary<Transform, Vector3>();
+
+    // Text -> uska background
+    private readonly Dictionary<TMP_Text, RectTransform> textBackgrounds =
+        new Dictionary<TMP_Text, RectTransform>();
 
 
     // ============================================================
@@ -323,6 +1234,7 @@ public class CoinManager : MonoBehaviour
     {
         RefreshTextArray(
             coinTexts,
+            coinBackgrounds,
             GetCoins(),
             coinPrefix,
             coinSuffix,
@@ -331,6 +1243,7 @@ public class CoinManager : MonoBehaviour
 
         RefreshTextArray(
             gemTexts,
+            gemBackgrounds,
             GetGems(),
             gemPrefix,
             gemSuffix,
@@ -347,6 +1260,7 @@ public class CoinManager : MonoBehaviour
 
     private void RefreshTextArray(
         TMP_Text[] texts,
+        RectTransform[] backgrounds,
         int targetValue,
         string prefix,
         string suffix,
@@ -355,10 +1269,23 @@ public class CoinManager : MonoBehaviour
         if (texts == null)
             return;
 
-        foreach (TMP_Text text in texts)
+        for (int i = 0; i < texts.Length; i++)
         {
+            TMP_Text text = texts[i];
+
             if (text == null)
                 continue;
+
+            // Same index wala background is text se jod do.
+            RectTransform background =
+                (backgrounds != null && i < backgrounds.Length)
+                    ? backgrounds[i]
+                    : null;
+
+            if (background != null)
+                textBackgrounds[text] = background;
+            else
+                textBackgrounds.Remove(text);
 
             SaveOriginalTextScale(text);
 
@@ -381,6 +1308,109 @@ public class CoinManager : MonoBehaviour
                     suffix
                 );
             }
+        }
+    }
+
+
+    // ============================================================
+    // TEXT + BACKGROUND WIDTH UPDATE
+    // ============================================================
+
+    private void ApplyText(TMP_Text text, string content)
+    {
+        if (text == null)
+            return;
+
+        text.text = content;
+
+        UpdateBackgroundWidth(text, content);
+    }
+
+
+    private void UpdateBackgroundWidth(TMP_Text text, string content)
+    {
+        if (!autoResizeBackground)
+            return;
+
+        if (!textBackgrounds.TryGetValue(text, out RectTransform background))
+            return;
+
+        if (background == null)
+            return;
+
+        // Naye content ke hisaab se text ki width nikalo.
+        float textWidth = text.GetPreferredValues(content).x;
+
+        float width = textWidth +
+            backgroundPadding * 2f +
+            backgroundExtraWidth;
+
+        width = Mathf.Max(width, minBackgroundWidth);
+
+        if (maxBackgroundWidth > 0f)
+            width = Mathf.Min(width, maxBackgroundWidth);
+
+        float oldWidth = background.rect.width;
+
+        if (Mathf.Approximately(oldWidth, width))
+            return;
+
+        float pivotX = background.pivot.x;
+        float scaleX = background.localScale.x;
+
+        Vector2 position = background.anchoredPosition;
+
+        BackgroundAlignment alignment = GetBackgroundAlignment(text);
+
+        // Resize se pehle fixed edge / center ki position nikalo.
+        float leftEdge = position.x - pivotX * oldWidth * scaleX;
+        float rightEdge = position.x + (1f - pivotX) * oldWidth * scaleX;
+        float centerX = position.x + (0.5f - pivotX) * oldWidth * scaleX;
+
+        background.SetSizeWithCurrentAnchors(
+            RectTransform.Axis.Horizontal,
+            width
+        );
+
+        // Fixed edge ko wapas usi jagah rakho.
+        switch (alignment)
+        {
+            case BackgroundAlignment.Left:
+                // Left edge fixed, right side badhega.
+                position.x = leftEdge + pivotX * width * scaleX;
+                break;
+
+            case BackgroundAlignment.Right:
+                // Right edge fixed, left side badhega.
+                position.x = rightEdge - (1f - pivotX) * width * scaleX;
+                break;
+
+            default:
+                // Center fixed, dono side barabar badhega.
+                position.x = centerX - (0.5f - pivotX) * width * scaleX;
+                break;
+        }
+
+        background.anchoredPosition = position;
+    }
+
+
+    // Text ke alignment se decide karo background kis side me rahega.
+    private BackgroundAlignment GetBackgroundAlignment(TMP_Text text)
+    {
+        if (backgroundAlignment != BackgroundAlignment.Auto)
+            return backgroundAlignment;
+
+        switch (text.horizontalAlignment)
+        {
+            case HorizontalAlignmentOptions.Center:
+                return BackgroundAlignment.Center;
+
+            case HorizontalAlignmentOptions.Right:
+                return BackgroundAlignment.Right;
+
+            default:
+                return BackgroundAlignment.Left;
         }
     }
 
@@ -466,9 +1496,11 @@ public class CoinManager : MonoBehaviour
 
             displayedValues[text] = displayedValue;
 
-            text.text = prefix +
-                FormatForDisplay(displayedValue) +
-                suffix;
+            // Text ke saath background bhi har frame resize hoga.
+            ApplyText(
+                text,
+                prefix + FormatForDisplay(displayedValue) + suffix
+            );
 
             yield return null;
         }
@@ -477,9 +1509,10 @@ public class CoinManager : MonoBehaviour
         {
             displayedValues[text] = targetValue;
 
-            text.text = prefix +
-                FormatForDisplay(targetValue) +
-                suffix;
+            ApplyText(
+                text,
+                prefix + FormatForDisplay(targetValue) + suffix
+            );
 
             // Counting ke baad halka sa text pop.
             yield return PopTextRoutine(text);
@@ -725,9 +1758,10 @@ public class CoinManager : MonoBehaviour
 
         displayedValues[text] = value;
 
-        text.text = prefix +
-            FormatForDisplay(value) +
-            suffix;
+        ApplyText(
+            text,
+            prefix + FormatForDisplay(value) + suffix
+        );
     }
 
 

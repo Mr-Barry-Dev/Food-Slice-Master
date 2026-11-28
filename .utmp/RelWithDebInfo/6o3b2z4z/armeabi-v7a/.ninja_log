@@ -1,23 +1,23 @@
 # ninja log v5
-23	5625	8143811885807461	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	a76057bb238eb462
-82	5802	8143811887786566	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	b5f0b4b79667ab31
-36	5861	8143811888386180	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	ccc704ae44d2c067
-52	5987	8143811889776438	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	3bd4093ccf99f847
-67	5923	8143811888716227	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	4e115a20a04505d5
-6544	7104	8143811901134169	D:/UnityProJects/Food Slice Master/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6o3b2z4z/obj/armeabi-v7a/libswappywrapper.so	1bc12f5c66e0c5c0
-5861	6543	8143811895423523	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	b981a99893c4b27c
-11	7309	8143811903004952	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	fac093c24629a9dd
-5626	9665	8143811926804413	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	968de879def512ef
-5803	9393	8143811923970021	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	f4d640e02253983e
-9665	9849	8143811928689755	D:/UnityProJects/Food Slice Master/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6o3b2z4z/obj/armeabi-v7a/libgame.so	24a907a80c73ce23
 55	6974	8143816011338126	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	a76057bb238eb462
+6974	11563	8143816058410748	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	b5f0b4b79667ab31
 25	7374	8143816015623068	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	ccc704ae44d2c067
 71	7452	8143816015653041	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	4e115a20a04505d5
 40	7651	8143816017442816	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	3bd4093ccf99f847
 7544	8545	8143816027832237	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	b981a99893c4b27c
-86	8943	8143816031943179	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	968de879def512ef
 11	9403	8143816036026461	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	fac093c24629a9dd
 8546	9430	8143816035626708	D:/UnityProJects/Food Slice Master/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6o3b2z4z/obj/armeabi-v7a/libswappywrapper.so	1bc12f5c66e0c5c0
-6974	11563	8143816058410748	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	b5f0b4b79667ab31
+86	8943	8143816031943179	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	968de879def512ef
 7374	12138	8143816064152359	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	f4d640e02253983e
 12139	12316	8143816066058034	D:/UnityProJects/Food Slice Master/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6o3b2z4z/obj/armeabi-v7a/libgame.so	24a907a80c73ce23
+88	5293	8175845312074083	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	b5f0b4b79667ab31
+37	5367	8175845313433366	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	a76057bb238eb462
+21	5478	8175845314828004	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	ccc704ae44d2c067
+53	5578	8175845316140926	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	3bd4093ccf99f847
+5478	6248	8175845322925746	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	b981a99893c4b27c
+71	6732	8175845327740612	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	968de879def512ef
+6248	6900	8175845329633420	D:/UnityProJects/Food Slice Master/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6o3b2z4z/obj/armeabi-v7a/libswappywrapper.so	1bc12f5c66e0c5c0
+10	7043	8175845330820137	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	fac093c24629a9dd
+5312	8743	8175845348054234	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	4e115a20a04505d5
+5368	8886	8175845349547670	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	f4d640e02253983e
+8887	9078	8175845351568535	D:/UnityProJects/Food Slice Master/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/6o3b2z4z/obj/armeabi-v7a/libgame.so	24a907a80c73ce23
